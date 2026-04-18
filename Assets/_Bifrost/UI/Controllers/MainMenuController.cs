@@ -45,9 +45,14 @@ namespace _Bifrost.UI.Controllers
             };
         }
 
-        public void Show()
+        public void ShowSelf()
         {
             _root.style.display = DisplayStyle.Flex;
+        }
+
+        public void HideSelf()
+        {
+            _root.style.display = DisplayStyle.None;
         }
     }
 }

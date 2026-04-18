@@ -9,7 +9,7 @@ namespace _Bifrost.Runtime.Managers.GamePlay
         
         public Texture2D Icon => _icon;
         
-        private Outline _outline;
+        protected Outline _outline;
 
         private void OnEnable()
         {

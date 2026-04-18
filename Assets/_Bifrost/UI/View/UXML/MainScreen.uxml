@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement name="root" style="flex-grow: 1; justify-content: space-around; align-items: stretch; align-self: stretch;">
         <ui:GroupBox name="ButtonGroup" style="align-self: center;">
-            <ui:Button text="START GAME" name="StartGameButton"/>
+            <ui:Button text="PLAY" name="StartGameButton" style="width: 150px;"/>
             <ui:Button text="SETTINGS" name="SettingsButton"/>
             <ui:Button text="EXIT" name="ExitButton" style="width: auto;"/>
         </ui:GroupBox>
