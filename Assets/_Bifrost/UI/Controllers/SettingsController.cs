@@ -1,9 +1,12 @@
 using System;
+using _Bifrost.UI.Controllers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class SettingsController : MonoBehaviour
 {
+    [SerializeField] private MainMenuController _mainMenuUI;
+    
     private VisualElement _root;
     private Slider _musicSlider;
     private Button _cancelButton;
@@ -14,10 +17,7 @@ public class SettingsController : MonoBehaviour
         _musicSlider = _root.Q<Slider>("MusicSlider");
         _cancelButton = _root.Q<Button>("CancelButton");
 
-        _cancelButton.clicked += () =>
-        {
-            GameManager.Instance.ShowMainMenu();
-        };
+        _root.style.display = DisplayStyle.None;
     }
 
     private void Start()
@@ -30,5 +30,16 @@ public class SettingsController : MonoBehaviour
         {
             AudioManager.Instance.SetMusicVolume(evt.newValue);
         });
+        
+        _cancelButton.clicked += () =>
+        {
+            _root.style.display = DisplayStyle.None;
+            _mainMenuUI.Show();
+        };
+    }
+
+    public void Show()
+    {
+        _root.style.display = DisplayStyle.Flex;
     }
 }

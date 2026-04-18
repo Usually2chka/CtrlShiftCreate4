@@ -7,22 +7,47 @@ namespace _Bifrost.UI.Controllers
 
     public class MainMenuController : MonoBehaviour
     {
+        [SerializeField] private SettingsController _settingsController;
+        [SerializeField] private HUDController _hudController;
+        
+        private VisualElement _root;
+        private Button _playButton;
+        private Button _settingsButton;
+        private Button _exitButton;
+        
+        private void Awake()
+        {
+            _root = GetComponent<UIDocument>().rootVisualElement;
+            
+            _playButton = _root.Q<Button>("StartGameButton");
+            _settingsButton = _root.Q<Button>("SettingsButton");
+            _exitButton = _root.Q<Button>("ExitButton");
+        }
+        
         private void Start()
         {
-            var root = GetComponent<UIDocument>().rootVisualElement;
-            
-            var playButton = root.Q<Button>("StartGameButton");
-            var settingsButton = root.Q<Button>("SettingsButton");
-
-            playButton.clicked += () =>
+            _playButton.clicked += () =>
             {
                 GameManager.Instance.SetState(GameState.RUNNING);
+                _hudController.Show();
+                _root.style.display = DisplayStyle.None;
             };
             
-            settingsButton.clicked += () =>
+            _settingsButton.clicked += () =>
             {
-                GameManager.Instance.ShowSettings();
+                _settingsController.Show();
+                _root.style.display = DisplayStyle.None;
             };
+
+            _exitButton.clicked += () =>
+            {
+                Application.Quit();
+            };
+        }
+
+        public void Show()
+        {
+            _root.style.display = DisplayStyle.Flex;
         }
     }
 }

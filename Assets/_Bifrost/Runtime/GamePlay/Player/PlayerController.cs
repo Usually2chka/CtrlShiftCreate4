@@ -1,10 +1,13 @@
 using _Bifrost.Runtime.Managers.GamePlay;
+using _Bifrost.UI.Controllers;
 using UnityEngine;
 
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private HUDController _hudController;
+    
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _mouseSensitivity = 25f;
     [SerializeField] private Transform _playerCamera;
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleLook();
         Interact();
+        TryToPickUp(_current);
     }
     
     public void EnableInput()
@@ -102,16 +106,27 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 5f))
         {
             var newObj = hit.collider.GetComponent<InteractiveObject>();
-
+            
             if (newObj != _current)
             {
                 if (_current != null)
+                {
                     _current.OnHoverExit();
+                    _hudController.HideHint();
+                }
 
                 _current = newObj;
 
                 if (_current != null)
+                {
                     _current.OnHoverEnter();
+                    if (_hudController.IsFullInventory == true)
+                        _hudController.ShowError("Инвентарь полон!");
+                    else
+                        _hudController.ShowHint("E - Взаимодействовать");
+                }
+
+                
             }
         }
         else
@@ -120,7 +135,23 @@ public class PlayerController : MonoBehaviour
             {
                 _current.OnHoverExit();
                 _current = null;
+                _hudController.HideHint();
             }
         }
+    }
+
+    private void TryToPickUp(InteractiveObject obj)
+    {
+        if (Keyboard.current.eKey.wasPressedThisFrame && _current != null)
+        {
+            PickUp(obj);
+        }
+    }
+    
+    private void PickUp(InteractiveObject obj)
+    {
+        _hudController.AddToHotbar(obj);
+        _current = null;
+        _hudController.HideHint();
     }
 }

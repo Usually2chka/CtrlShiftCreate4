@@ -1,0 +1,40 @@
+:root {
+}
+
+#crosshair {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: white;
+
+    left: 50%;
+    top: 50%;
+    margin-left: -3px;
+    margin-top: -3px;
+
+    border-radius: 3px;
+
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+
+    border-top-color: black;
+    border-bottom-color: black;
+    border-left-color: black;
+    border-right-color: black;
+}
+
+.cell {
+    width: 64px;
+    height: 64px;
+    margin: 4px;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    border-width: 2px;
+    border-color: gray;
+}
+
+.cell.selected {
+    border-color: yellow;
+}
