@@ -32,6 +32,7 @@ public class BreakableTile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"BreakableTile {gameObject.name} triggered by {other.gameObject.name}. FloorSystem active: {FloorSystem.IsActive}");
         if (!FloorSystem.IsActive) return;
 
         if (other.CompareTag("Player") && !isDisabled)

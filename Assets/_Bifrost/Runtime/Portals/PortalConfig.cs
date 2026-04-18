@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PortalConfig", menuName = "ScriptableObjects/PortalConfig")]
-public class PortalConfig : ScriptableObject
+namespace _Bifrost.Runtime.Portals
+{
+    [CreateAssetMenu(fileName = "PortalConfig", menuName = "ScriptableObjects/PortalConfig")]
+    public class PortalConfig : ScriptableObject
 {
     public string portalId;
     public WorldType worldType;
@@ -35,4 +37,5 @@ public enum WorldType
     Helheim,
     Muspelheim,
     Niflheim
+}
 }

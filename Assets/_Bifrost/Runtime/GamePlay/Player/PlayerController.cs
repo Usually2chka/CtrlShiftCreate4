@@ -1,5 +1,6 @@
 using System.Collections;
 using _Bifrost.Runtime.Managers.GamePlay;
+using _Bifrost.Runtime.Portals;
 using _Bifrost.UI.Controllers;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private InputSystem_Actions _inputActions;
     
     private InteractiveObject _current;
+    private System.Action<PortalState> _currentPortalStateHandler;
 
     public void EnableInput()
     {
@@ -116,6 +118,14 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    private void UpdatePortalHint(ArchEnterPortal archPortal)
+    {
+        if (archPortal.Portal.state == PortalState.Closed)
+            _hudController.ShowHint("E - открыть портал");
+        else
+            _hudController.ShowHint("E - закрыть портал");
+    }
+    
     private void Interact()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -131,6 +141,8 @@ public class PlayerController : MonoBehaviour
                 {
                     _current.OnHoverExit();
                     _hudController.HideHint();
+                    // отписываемся от предыдущего события изменения состояния портала
+                    UnsubscribeFromPortalStateChange();
                 }
 
                 _current = newObj;
@@ -151,7 +163,23 @@ public class PlayerController : MonoBehaviour
                 _current.OnHoverExit();
                 _current = null;
                 _hudController.HideHint();
+                // отписываемся от события изменения состояния портала
+                UnsubscribeFromPortalStateChange();
             }
+        }
+    }
+
+    private void UnsubscribeFromPortalStateChange()
+    {
+        if (_currentPortalStateHandler != null)
+        {
+            // находим ArchEnterPortal и отписываемся от его события
+            var archPortal = _current?.GetComponent<ArchEnterPortal>();
+            if (archPortal?.Portal != null)
+            {
+                archPortal.Portal.OnStateChanged -= _currentPortalStateHandler;
+            }
+            _currentPortalStateHandler = null;
         }
     }
 
@@ -162,6 +190,13 @@ public class PlayerController : MonoBehaviour
         //  если это лунка
         if (socket != null)
         {
+            // проверяем, что портал открыт
+            if (socket.LinkedPortal != null && socket.LinkedPortal.state == PortalState.Closed)
+            {
+                _hudController.ShowError("Портал закрыт!");
+                return;
+            }
+
             if (socket.HasItem())
                 _hudController.ShowHint("E - достать");
             else
@@ -170,11 +205,30 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        //  если это обычный предмет
-        if (_hudController.IsFullInventory)
-            _hudController.ShowError("Инвентарь полон!");
-        else
-            _hudController.ShowHint("E - подобрать");
+        var archPortal = _current.GetComponent<ArchEnterPortal>();
+        
+        // если это портал для входа
+        if (archPortal != null)
+        {
+            if (archPortal.Portal != null)
+            {
+                // подписываемся на изменение состояния портала
+                _currentPortalStateHandler = (newState) => UpdatePortalHint(archPortal);
+                archPortal.Portal.OnStateChanged += _currentPortalStateHandler;
+                
+                UpdatePortalHint(archPortal);
+            }
+            return;
+        }
+
+        //  если это обычный предмет (не кристалл)
+        if (_current.GetComponent<Crystal>() == null)
+        {
+            if (_hudController.IsFullInventory)
+                _hudController.ShowError("Инвентарь полон!");
+            else
+                _hudController.ShowHint("E - подобрать");
+        }
     }
     
     private void PickUp(InteractiveObject obj)
@@ -201,8 +255,19 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // обычный подбор
-        PickUp(_current);
+        var archPortal = _current.GetComponent<ArchEnterPortal>();
+        
+        if (archPortal != null)
+        {
+            archPortal.Interact();
+            return;
+        }
+
+        // обычный подбор (только не кристаллы)
+        if (_current.GetComponent<Crystal>() == null)
+        {
+            PickUp(_current);
+        }
     }
     
     private IEnumerator PickupAnimation(InteractiveObject obj)
@@ -224,7 +289,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        _hudController.AddToHotbar(obj);
+        _hudController.AddToHotbar((IInventoryItem)obj);
 
         obj.gameObject.SetActive(false);
 
@@ -239,12 +304,19 @@ public class PlayerController : MonoBehaviour
     
     private void HandleSocket(SocketPortal socket)
     {
+        // проверяем, что портал открыт
+        if (socket.LinkedPortal != null && socket.LinkedPortal.state == PortalState.Closed)
+        {
+            _hudController.ShowError("Портал закрыт!");
+            return;
+        }
+
         // если в лунке есть предмет → достаём
         var inside = socket.Take();
 
         if (inside != null)
         {
-            bool added = _hudController.AddToHotbar(inside);
+            bool added = _hudController.AddToHotbar((IInventoryItem)inside);
 
             if (!added)
             {
@@ -254,7 +326,7 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
-            inside.gameObject.SetActive(false);
+            inside.Hide();
             return;
         }
 
@@ -263,7 +335,16 @@ public class PlayerController : MonoBehaviour
 
         if (item == null) return;
 
+        var crystal = item as Crystal;
+        if (crystal == null) return; // Может быть вставлен только Crystal
+
+        if (!socket.CanInsert(crystal))
+        {
+            _hudController.ShowError("Неподходящий тип кристалла!");
+            return;
+        }
+
         _hudController.RemoveSelectedItem();
-        socket.Insert(item);
+        socket.Insert(crystal);
     }
 }

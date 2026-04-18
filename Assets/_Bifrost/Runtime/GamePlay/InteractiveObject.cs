@@ -3,7 +3,7 @@ using UnityEngine;
 namespace _Bifrost.Runtime.Managers.GamePlay
 {
     [RequireComponent(typeof(Outline))]
-    public class InteractiveObject : MonoBehaviour
+    public class InteractiveObject : MonoBehaviour, IInventoryItem
     {
         [SerializeField] private Texture2D _icon;
         

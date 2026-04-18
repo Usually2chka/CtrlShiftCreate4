@@ -14,7 +14,7 @@ namespace _Bifrost.UI.Controllers
 
         private VisualElement _hotBar;
         private VisualElement[] _cells;
-        private InteractiveObject[] _cellsHotbar;
+        private IInventoryItem[] _cellsHotbar;
         private Label _hintLabel;
         
         private int _selectedIndex;
@@ -29,7 +29,7 @@ namespace _Bifrost.UI.Controllers
             _hintLabel.style.display = DisplayStyle.None;
             _hotBar = _root.Q<VisualElement>("HotBar");
             _cells = new VisualElement[3];
-            _cellsHotbar = new InteractiveObject[3];
+            _cellsHotbar = new IInventoryItem[3];
             
             for (int i = 0; i < _cells.Length; i++)
                 _cells[i] = _root.Q<VisualElement>($"cell{i}");
@@ -65,13 +65,21 @@ namespace _Bifrost.UI.Controllers
             _root.style.display = DisplayStyle.Flex;
         }
         
-        public bool AddToHotbar(InteractiveObject obj)
+        public bool AddToHotbar(IInventoryItem obj)
         {
             if (_cellsHotbar[_selectedIndex] == null)
             {
                 _cellsHotbar[_selectedIndex] = obj;
                 RefreshSlot(_selectedIndex);
-                obj.gameObject.SetActive(false);
+                var crystal = obj as Crystal;
+                if (crystal != null)
+                {
+                    crystal.Hide();
+                }
+                else
+                {
+                    (obj as InteractiveObject).gameObject.SetActive(false);
+                }
                 return true;
             }
 
@@ -81,7 +89,15 @@ namespace _Bifrost.UI.Controllers
                 {
                     _cellsHotbar[i] = obj;
                     RefreshSlot(i);
-                    obj.gameObject.SetActive(false);
+                    var crystal = obj as Crystal;
+                    if (crystal != null)
+                    {
+                        crystal.Hide();
+                    }
+                    else
+                    {
+                        (obj as InteractiveObject).gameObject.SetActive(false);
+                    }
                     return true;
                 }
             }
@@ -138,7 +154,7 @@ namespace _Bifrost.UI.Controllers
             _root.style.display = DisplayStyle.None;
         }
         
-        public InteractiveObject GetSelectedItem()
+        public IInventoryItem GetSelectedItem()
         {
             return _cellsHotbar[_selectedIndex];
         }
@@ -147,6 +163,14 @@ namespace _Bifrost.UI.Controllers
         {
             _cellsHotbar[_selectedIndex] = null;
             RefreshSlot(_selectedIndex);
+        }
+        
+        public void RefreshAllSlots()
+        {
+            for (int i = 0; i < _cells.Length; i++)
+            {
+                RefreshSlot(i);
+            }
         }
     }
 }
