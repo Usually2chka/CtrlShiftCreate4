@@ -152,10 +152,4 @@ public class PlayerController : MonoBehaviour
         _current = null;
         _hudController.HideHint();
     }
-    
-    private void ClearTarget()
-    {
-        _current = null;
-        _hudController.HideHint();
-    }
 }

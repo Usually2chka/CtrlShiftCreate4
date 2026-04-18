@@ -2,14 +2,17 @@
     <Style src="project://database/Assets/_Bifrost/UI/View/USS/crosshair.uss?fileID=7433441132597879392&amp;guid=819c795a17c02b440b235ed172fda7a1&amp;type=3#crosshair"/>
     <ui:VisualElement name="crosshair" style="flex-grow: 1; -unity-text-outline-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);"/>
     <ui:VisualElement name="InventoryArea" style="flex-grow: 1; align-self: center; width: 20%; height: 30%;">
+        <ui:VisualElement name="HintArea" style="flex-grow: 1; height: 81px; justify-content: flex-end; align-items: auto; border-right-width: 0;">
+            <ui:Label text="Е -Взаимодействовать&#10;" name="HintLabel" style="-unity-font-style: bold; font-size: 15px; -unity-text-align: upper-left; width: 120px;"/>
+        </ui:VisualElement>
         <ui:VisualElement name="HotBar" style="flex-grow: 1; flex-direction: row; width: 100%; height: 4%; align-self: flex-end; justify-content: flex-end; align-items: auto; border-bottom-width: 29px;">
-            <ui:VisualElement name="cell0" class="cell" style="flex-grow: 1; width: 33%; height: 10%; align-self: flex-end; justify-content: flex-end; align-items: auto;">
+            <ui:VisualElement name="cell0" class="cell" style="flex-grow: 1; width: 33%; height: 25%; align-self: flex-end; justify-content: flex-end; align-items: auto;">
                 <ui:Label text="1" style="font-size: 20px; -unity-font-style: bold; color: rgb(27, 27, 27);"/>
             </ui:VisualElement>
-            <ui:VisualElement name="cell1" class="cell" style="flex-grow: 1; width: 33%; height: 10%; justify-content: flex-end; align-items: auto;">
+            <ui:VisualElement name="cell1" class="cell" style="flex-grow: 1; width: 33%; height: 25%; justify-content: flex-end; align-items: auto;">
                 <ui:Label text="2" style="font-size: 20px; -unity-font-style: bold;"/>
             </ui:VisualElement>
-            <ui:VisualElement name="cell2" class="cell" style="flex-grow: 1; width: 33%; height: 10%; justify-content: flex-end; align-items: auto;">
+            <ui:VisualElement name="cell2" class="cell" style="flex-grow: 1; width: 33%; height: 25%; justify-content: flex-end; align-items: auto;">
                 <ui:Label text="3" style="font-size: 20px; -unity-font-style: bold;"/>
             </ui:VisualElement>
         </ui:VisualElement>

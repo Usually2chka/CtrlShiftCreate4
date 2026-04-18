@@ -13,6 +13,7 @@ namespace _Bifrost.UI.Controllers
         private VisualElement _hotBar;
         private VisualElement[] _cells;
         private InteractiveObject[] _cellsHotbar;
+        private Label _hintLabel;
         
         private int _selectedIndex;
 
@@ -21,6 +22,8 @@ namespace _Bifrost.UI.Controllers
             _root = GetComponent<UIDocument>().rootVisualElement;
             _root.style.display = DisplayStyle.None;
             
+            _hintLabel = _root.Q<Label>("HintLabel");
+            _hintLabel.style.display = DisplayStyle.None;
             _hotBar = _root.Q<VisualElement>("HotBar");
             _cells = new VisualElement[3];
             _cellsHotbar = new InteractiveObject[3];
@@ -90,13 +93,13 @@ namespace _Bifrost.UI.Controllers
 
         public void HideHint()
         {
-            //hintLabel.style.display = DisplayStyle.None;
+            _hintLabel.style.display = DisplayStyle.None;
         }
         
         public void ShowHint(string text)
         {
-            // hintLabel.text = text;
-            // hintLabel.style.display = DisplayStyle.Flex;
+            _hintLabel.text = text;
+            _hintLabel.style.display = DisplayStyle.Flex;
         }
     }
 }
