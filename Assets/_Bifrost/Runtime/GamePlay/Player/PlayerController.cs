@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _jumpForce = 1.5f;
     [SerializeField] private float _gravity = -9.81f;
+    public float gravityScale = 1f;
     
     private float _yVelocity;
     
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = transform.right * _moveInput.x + transform.forward * _moveInput.y;
 
-        _yVelocity += _gravity * Time.deltaTime;
+        _yVelocity += _gravity * gravityScale * Time.deltaTime;
 
         move.y = _yVelocity;
 
@@ -94,7 +95,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_controller.isGrounded)
         {
-            _yVelocity = Mathf.Sqrt(_jumpForce * -2f * _gravity);
+            _yVelocity = Mathf.Sqrt(_jumpForce * -2f * _gravity * gravityScale);
         }
     }
     
