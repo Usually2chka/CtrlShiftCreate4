@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 5f))
         {
             var newObj = hit.collider.GetComponent<InteractiveObject>();
-
+            
             if (newObj != _current)
             {
                 if (_current != null)
@@ -121,8 +121,13 @@ public class PlayerController : MonoBehaviour
                 if (_current != null)
                 {
                     _current.OnHoverEnter();
-                    _hudController.ShowHint("E - Взаимодействовать");
+                    if (_hudController.IsFullInventory == true)
+                        _hudController.ShowError("Инвентарь полон!");
+                    else
+                        _hudController.ShowHint("E - Взаимодействовать");
                 }
+
+                
             }
         }
         else
@@ -147,8 +152,6 @@ public class PlayerController : MonoBehaviour
     private void PickUp(InteractiveObject obj)
     {
         _hudController.AddToHotbar(obj);
-        obj.gameObject.SetActive(false);
-        
         _current = null;
         _hudController.HideHint();
     }

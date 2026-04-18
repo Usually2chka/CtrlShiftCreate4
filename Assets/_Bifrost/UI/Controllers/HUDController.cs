@@ -8,6 +8,8 @@ namespace _Bifrost.UI.Controllers
 {
     public class HUDController : MonoBehaviour
     {
+        public bool IsFullInventory {get; private set;}
+        
         private VisualElement _root;
 
         private VisualElement _hotBar;
@@ -16,7 +18,8 @@ namespace _Bifrost.UI.Controllers
         private Label _hintLabel;
         
         private int _selectedIndex;
-
+        
+        
         private void Awake()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
@@ -64,18 +67,26 @@ namespace _Bifrost.UI.Controllers
         
         public void AddToHotbar(InteractiveObject obj)
         {
+            if (_cellsHotbar[_selectedIndex] == null)
+            {
+                _cellsHotbar[_selectedIndex] = obj;
+                RefreshSlot(_selectedIndex);
+                obj.gameObject.SetActive(false);
+                return;
+            }
+
             for (int i = 0; i < _cellsHotbar.Length; i++)
             {
                 if (_cellsHotbar[i] == null)
                 {
                     _cellsHotbar[i] = obj;
-
-                    //obj.gameObject.SetActive(false); // спрятать в мире
                     RefreshSlot(i);
-
+                    obj.gameObject.SetActive(false);
                     return;
                 }
             }
+            
+            IsFullInventory = true;
         }
         
         private void RefreshSlot(int index)
@@ -98,8 +109,16 @@ namespace _Bifrost.UI.Controllers
         
         public void ShowHint(string text)
         {
+            _hintLabel.style.color = Color.black;
             _hintLabel.text = text;
             _hintLabel.style.display = DisplayStyle.Flex;
+        }
+        
+        public void ShowError(string text)
+        {
+            _hintLabel.text = text;
+            _hintLabel.style.display = DisplayStyle.Flex;
+            _hintLabel.style.color = Color.red;
         }
     }
 }
