@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController _controller;
     private Vector2 _moveInput;
     private Vector2 _lookInput;
+    private Vector3 _externalVelocity;
 
     private float _xRotation = 0f;
     private InputSystem_Actions _inputActions;
@@ -86,16 +87,24 @@ public class PlayerController : MonoBehaviour
     {
         if (_controller.isGrounded && _yVelocity < 0)
         {
-            _yVelocity = -2f; // "прилипание" к земле
+            _yVelocity = -2f;
         }
 
         Vector3 move = transform.right * _moveInput.x + transform.forward * _moveInput.y;
+        move *= _speed;
 
         _yVelocity += _gravity * gravityScale * Time.deltaTime;
 
-        move.y = _yVelocity;
+        // Применяем внешнюю силу от взрывов
+        move += new Vector3(_externalVelocity.x, 0f, _externalVelocity.z);
+        move.y = _yVelocity + _externalVelocity.y;
 
-        _controller.Move(move * _speed * Time.deltaTime);
+        if (_externalVelocity.sqrMagnitude > 0.01f)
+        {
+            _externalVelocity = Vector3.Lerp(_externalVelocity, Vector3.zero, Time.deltaTime * 4f);
+        }
+
+        _controller.Move(move * Time.deltaTime);
     }
 
     private void HandleLook()
@@ -118,6 +127,11 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public void ApplyKnockback(Vector3 force)
+    {
+        _externalVelocity += force;
+    }
+
     private void UpdatePortalHint(ArchEnterPortal archPortal)
     {
         if (archPortal.Portal.state == PortalState.Closed)
