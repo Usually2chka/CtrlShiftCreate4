@@ -1,13 +1,14 @@
-using System;
 using UnityEngine;
-
 
 namespace _Bifrost.Runtime.Managers.GamePlay
 {
     [RequireComponent(typeof(Outline))]
     public class InteractiveObject : MonoBehaviour
     {
-        private GameObject _hintUI;
+        [SerializeField] private Texture2D _icon;
+        
+        public Texture2D Icon => _icon;
+        
         private Outline _outline;
 
         private void OnEnable()

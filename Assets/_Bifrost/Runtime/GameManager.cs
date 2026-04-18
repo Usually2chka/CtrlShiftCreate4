@@ -8,10 +8,6 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private PlayerController _playerController;
     
-    [SerializeField] private GameObject _mainMenuUI;
-    [SerializeField] private GameObject _settingsUI;
-    [SerializeField] private GameObject _hudUI;
-    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,7 +27,7 @@ public class GameManager : MonoBehaviour
     public void SetState(GameState newState)
     {
         CurrentState = newState;
-
+        
         switch (newState)
         {
             case GameState.PAUSED:

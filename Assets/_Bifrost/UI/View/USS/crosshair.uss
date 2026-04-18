@@ -24,3 +24,17 @@
     border-left-color: black;
     border-right-color: black;
 }
+
+.cell {
+    width: 64px;
+    height: 64px;
+    margin: 4px;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 6px;
+    border-width: 2px;
+    border-color: gray;
+}
+
+.cell.selected {
+    border-color: yellow;
+}
