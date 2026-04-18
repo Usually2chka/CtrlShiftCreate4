@@ -24,7 +24,7 @@ namespace _Bifrost.UI.Controllers
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
             _root.style.display = DisplayStyle.None;
-            
+            HideSelf();
             _hintLabel = _root.Q<Label>("HintLabel");
             _hintLabel.style.display = DisplayStyle.None;
             _hotBar = _root.Q<VisualElement>("HotBar");
@@ -65,14 +65,14 @@ namespace _Bifrost.UI.Controllers
             _root.style.display = DisplayStyle.Flex;
         }
         
-        public void AddToHotbar(InteractiveObject obj)
+        public bool AddToHotbar(InteractiveObject obj)
         {
             if (_cellsHotbar[_selectedIndex] == null)
             {
                 _cellsHotbar[_selectedIndex] = obj;
                 RefreshSlot(_selectedIndex);
                 obj.gameObject.SetActive(false);
-                return;
+                return true;
             }
 
             for (int i = 0; i < _cellsHotbar.Length; i++)
@@ -82,11 +82,23 @@ namespace _Bifrost.UI.Controllers
                     _cellsHotbar[i] = obj;
                     RefreshSlot(i);
                     obj.gameObject.SetActive(false);
-                    return;
+                    return true;
                 }
             }
             
             IsFullInventory = true;
+            return false;
+        }
+        public bool CanAddToHotbar()
+        {
+            // если хотя бы один слот пустой
+            for (int i = 0; i < _cellsHotbar.Length; i++)
+            {
+                if (_cellsHotbar[i] == null)
+                    return true;
+            }
+
+            return false;
         }
         
         private void RefreshSlot(int index)
@@ -119,6 +131,22 @@ namespace _Bifrost.UI.Controllers
             _hintLabel.text = text;
             _hintLabel.style.display = DisplayStyle.Flex;
             _hintLabel.style.color = Color.red;
+        }
+
+        public void HideSelf()
+        {
+            _root.style.display = DisplayStyle.None;
+        }
+        
+        public InteractiveObject GetSelectedItem()
+        {
+            return _cellsHotbar[_selectedIndex];
+        }
+        
+        public void RemoveSelectedItem()
+        {
+            _cellsHotbar[_selectedIndex] = null;
+            RefreshSlot(_selectedIndex);
         }
     }
 }

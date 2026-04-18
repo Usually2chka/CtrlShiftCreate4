@@ -1,5 +1,7 @@
+using System;
 using _Bifrost.Runtime.Managers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +21,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            SetState(GameState.PAUSED);
+    }
+
     private void Start()
     {
         SetState(GameState.PAUSED);
@@ -32,14 +40,12 @@ public class GameManager : MonoBehaviour
         {
             case GameState.PAUSED:
                 _playerController.DisableInput();
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                _playerController.ShowMainMenu();
                 break;
 
             case GameState.RUNNING:
                 _playerController.EnableInput();
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                _playerController.HideMainMenu();
                 break;
         }
     }
