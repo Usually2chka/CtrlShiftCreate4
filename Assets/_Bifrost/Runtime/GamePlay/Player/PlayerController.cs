@@ -1,7 +1,6 @@
 using _Bifrost.Runtime.Managers.GamePlay;
 using UnityEngine;
 
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
