@@ -18,12 +18,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce = 1.5f;
     [SerializeField] private float _gravity = -9.81f;
     public float gravityScale = 1f;
-    
+
+    [Header("Ice Effects")]
+    [SerializeField] private LayerMask iceLayer;
+    [SerializeField] private float iceControl = 0.2f; // контроль на льду
+    [SerializeField] private float iceAcceleration = 2f;
+
+    private bool _isOnIce;
+
+    private Vector3 _currentVelocity;
     private float _yVelocity;
     
     private CharacterController _controller;
     private Vector2 _moveInput;
     private Vector2 _lookInput;
+    private Vector3 _externalVelocity;
 
     private float _xRotation = 0f;
     private InputSystem_Actions _inputActions;
@@ -86,16 +95,66 @@ public class PlayerController : MonoBehaviour
     {
         if (_controller.isGrounded && _yVelocity < 0)
         {
-            _yVelocity = -2f; // "прилипание" к земле
+            _yVelocity = -2f;
+        }
+        
+        _isOnIce = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f, iceLayer);
+
+        Vector3 inputDir = transform.right * _moveInput.x + transform.forward * _moveInput.y;
+
+        if (_isOnIce)
+        {
+            if (inputDir.sqrMagnitude > 0.01f)
+            {
+                // есть ввод → пытаемся управлять
+                _currentVelocity = Vector3.Lerp(
+                    _currentVelocity,
+                    inputDir * _speed,
+                    Time.deltaTime * iceAcceleration * iceControl
+                );
+            }
+            else
+            {
+                // нет ввода → медленно тормозим (ИНЕРЦИЯ)
+                _currentVelocity = Vector3.Lerp(
+                    _currentVelocity,
+                    Vector3.zero,
+                    Time.deltaTime * 0.1f // ← главный параметр скольжения
+                );
+            }
+        }
+        else
+        {
+            if (inputDir.sqrMagnitude > 0.01f)
+            {
+                _currentVelocity = inputDir * _speed;
+            }
+            else
+            {
+                // мягкое торможение вне льда
+                _currentVelocity = Vector3.Lerp(
+                    _currentVelocity,
+                    Vector3.zero,
+                    Time.deltaTime * 10f
+                );
+            }
         }
 
-        Vector3 move = transform.right * _moveInput.x + transform.forward * _moveInput.y;
+        Vector3 move = _currentVelocity;
+        move.y = _yVelocity + _externalVelocity.y;
 
         _yVelocity += _gravity * gravityScale * Time.deltaTime;
 
-        move.y = _yVelocity;
+        // Применяем внешнюю силу от взрывов
+        move += new Vector3(_externalVelocity.x, 0f, _externalVelocity.z);
+        move.y = _yVelocity + _externalVelocity.y;
 
-        _controller.Move(move * _speed * Time.deltaTime);
+        if (_externalVelocity.sqrMagnitude > 0.01f)
+        {
+            _externalVelocity = Vector3.Lerp(_externalVelocity, Vector3.zero, Time.deltaTime * 4f);
+        }
+
+        _controller.Move(move * Time.deltaTime);
     }
 
     private void HandleLook()
@@ -118,6 +177,11 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public void ApplyKnockback(Vector3 force)
+    {
+        _externalVelocity += force;
+    }
+
     private void UpdatePortalHint(ArchEnterPortal archPortal)
     {
         if (archPortal.Portal.state == PortalState.Closed)
