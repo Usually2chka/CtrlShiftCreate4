@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        SetState(GameState.PAUSED);
+        SetState(GameState.RUNNING);
     }
 
     public void SetState(GameState newState)

@@ -16,7 +16,6 @@ namespace _Bifrost.UI.Controllers
 
             playButton.clicked += () =>
             {
-                Debug.Log("Play");
                 GameManager.Instance.SetState(GameState.RUNNING);
             };
             
