@@ -41,11 +41,13 @@ public class GameManager : MonoBehaviour
             case GameState.PAUSED:
                 _playerController.DisableInput();
                 _playerController.ShowMainMenu();
+                Time.timeScale = 0;
                 break;
 
             case GameState.RUNNING:
                 _playerController.EnableInput();
                 _playerController.HideMainMenu();
+                Time.timeScale = 1;
                 break;
         }
     }
