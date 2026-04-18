@@ -21,13 +21,14 @@ public class MuspelheimEffect : MonoBehaviour, IWorldEffect
 
         if (player == null)
         {
-            player = FindObjectOfType<PlayerController>();
+            player = Object.FindFirstObjectByType<PlayerController>();
         }
 
         if ((spawnPoints == null || spawnPoints.Length == 0) && spawnRoot != null)
         {
             spawnPoints = spawnRoot.Cast<Transform>().ToArray();
         }
+
 
         CreateOrbs();
         isActive = true;

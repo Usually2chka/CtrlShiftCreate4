@@ -18,7 +18,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce = 1.5f;
     [SerializeField] private float _gravity = -9.81f;
     public float gravityScale = 1f;
-    
+
+    [Header("Ice Effects")]
+    [SerializeField] private LayerMask iceLayer;
+    [SerializeField] private float iceControl = 0.2f; // контроль на льду
+    [SerializeField] private float iceAcceleration = 2f;
+
+    private bool _isOnIce;
+
+    private Vector3 _currentVelocity;
     private float _yVelocity;
     
     private CharacterController _controller;
@@ -89,9 +97,51 @@ public class PlayerController : MonoBehaviour
         {
             _yVelocity = -2f;
         }
+        
+        _isOnIce = Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.2f, iceLayer);
 
-        Vector3 move = transform.right * _moveInput.x + transform.forward * _moveInput.y;
-        move *= _speed;
+        Vector3 inputDir = transform.right * _moveInput.x + transform.forward * _moveInput.y;
+
+        if (_isOnIce)
+        {
+            if (inputDir.sqrMagnitude > 0.01f)
+            {
+                // есть ввод → пытаемся управлять
+                _currentVelocity = Vector3.Lerp(
+                    _currentVelocity,
+                    inputDir * _speed,
+                    Time.deltaTime * iceAcceleration * iceControl
+                );
+            }
+            else
+            {
+                // нет ввода → медленно тормозим (ИНЕРЦИЯ)
+                _currentVelocity = Vector3.Lerp(
+                    _currentVelocity,
+                    Vector3.zero,
+                    Time.deltaTime * 0.1f // ← главный параметр скольжения
+                );
+            }
+        }
+        else
+        {
+            if (inputDir.sqrMagnitude > 0.01f)
+            {
+                _currentVelocity = inputDir * _speed;
+            }
+            else
+            {
+                // мягкое торможение вне льда
+                _currentVelocity = Vector3.Lerp(
+                    _currentVelocity,
+                    Vector3.zero,
+                    Time.deltaTime * 10f
+                );
+            }
+        }
+
+        Vector3 move = _currentVelocity;
+        move.y = _yVelocity + _externalVelocity.y;
 
         _yVelocity += _gravity * gravityScale * Time.deltaTime;
 
