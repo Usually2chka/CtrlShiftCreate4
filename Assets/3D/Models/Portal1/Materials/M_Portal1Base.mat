@@ -28,6 +28,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: e4644ea889b9927468e2df1c171bb448, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_44c1d1f84f5746a2853aea0728fbd58e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 527c973fee92e9047860b0e6e239a591, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_697d7c2275d842e8a8e19eb1235597e3_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 02e30422f45703543a83f645d460b10d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -58,7 +62,8 @@ Material:
     - _ShadeSize: 0.2
     - _ShadowSmooth: 0.02
     m_Colors:
-    - _BaseColorOverride: {r: 0.6392157, g: 0.5019608, b: 0.26666668, a: 0}
+    - _BaseColorOverride: {r: 0.6981132, g: 0.5409411, b: 0.2673905, a: 0}
+    - _BorderColor: {r: 0.89707565, g: 0.9076919, b: 0.91300005, a: 0}
     - _HighlightColor: {r: 1, g: 1, b: 1, a: 0}
     - _ShadowColor: {r: 0.6509804, g: 0.6392157, b: 0.6392157, a: 0}
   m_BuildTextureStacks: []

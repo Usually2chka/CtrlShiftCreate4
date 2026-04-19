@@ -39,7 +39,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Thickness: 0.3
+    - _Thickness: 0.15
     - _ThicknessMax: 0.05
     m_Colors:
     - _Color: {r: 0.016397279, g: 0.047992587, b: 0.18490559, a: 0}
