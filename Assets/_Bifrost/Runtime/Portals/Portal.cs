@@ -72,6 +72,7 @@ namespace _Bifrost.Runtime.Portals
 
         state = PortalState.Stabilized;
         WorldEffectManager.Instance.RemoveEffect(worldEffect);
+        OnStateChanged?.Invoke(state);
     }
 
     public void Destabilize()
@@ -80,6 +81,7 @@ namespace _Bifrost.Runtime.Portals
 
         state = PortalState.OpenUnstable;
         WorldEffectManager.Instance.RegisterEffect(worldEffect);
+        OnStateChanged?.Invoke(state);
     }
 
     public void AddCrystal(Crystal crystal)
@@ -149,11 +151,11 @@ namespace _Bifrost.Runtime.Portals
 
     private void CheckStability()
     {
-        if (_stabilityLevel >= 3 && state == PortalState.OpenUnstable)
+        if (_stabilityLevel == 3 && state == PortalState.OpenUnstable)
         {
             Stabilize();
         }
-        else if (_stabilityLevel < 3 && state == PortalState.Stabilized)
+        else if (_stabilityLevel != 3 && state == PortalState.Stabilized)
         {
             Destabilize();
         }

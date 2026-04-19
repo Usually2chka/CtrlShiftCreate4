@@ -40,6 +40,11 @@ public class PlayerController : MonoBehaviour
     private InteractiveObject _current;
     private System.Action<PortalState> _currentPortalStateHandler;
 
+    private void Start()
+    {
+        GameManager.Instance.RegisterPlayer(this);
+        _controller = GetComponent<CharacterController>();
+    }
     public void EnableInput()
     {
         _inputActions.Enable();
@@ -77,12 +82,6 @@ public class PlayerController : MonoBehaviour
         
         _inputActions.Player.Jump.performed += ctx => Jump();
     }
-    
-    private void Start()
-    {
-        _controller = GetComponent<CharacterController>();
-    }
-
     private void Update()
     {
         HandleMovement();

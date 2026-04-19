@@ -24,6 +24,28 @@ namespace _Bifrost.Runtime.Managers.GamePlay
         public SocketType SocketType => _socketType;
         public Portal LinkedPortal => _linkedPortal;
 
+        private void Start()
+        {
+            // Автоматически находим связанный портал (среди детей родительского объекта)
+            if (_linkedPortal == null)
+            {
+                _linkedPortal = transform.parent.GetComponentsInChildren<Portal>().FirstOrDefault();
+            }
+
+            // Автоматически устанавливаем _acceptedTypes на основе типа сокета и конфига портала
+            if (_linkedPortal != null && _linkedPortal.config != null)
+            {
+                if (_socketType == SocketType.Giving)
+                {
+                    _acceptedTypes = new WorldType[] { _linkedPortal.config.worldType };
+                }
+                else if (_socketType == SocketType.Receiving)
+                {
+                    _acceptedTypes = _linkedPortal.config.stabilizationCost.Select(cr => cr.type).ToArray();
+                }
+            }
+        }
+
         public bool CanInsert(Crystal crystal)
         {
             if (_current != null) return false; // сокет уже занят

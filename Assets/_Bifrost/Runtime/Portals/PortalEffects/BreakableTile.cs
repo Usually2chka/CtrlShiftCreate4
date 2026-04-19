@@ -13,7 +13,6 @@ public class BreakableTile : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log($"BreakableTile {gameObject.name} enabled and registered with TileManager.");
         FloorSystem.OnStateChanged += OnSystemChanged;
     }
 

@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class AsgardEffect : MonoBehaviour, IWorldEffect
 {
-    [SerializeField] private PlayerController _player;
+    private PlayerController _player;
 
     public float lowGravityScale = 0.1f;
     private float defaultGravityScale;
 
     public void Apply()
     {
+        _player = GameManager.Instance.Player;
         defaultGravityScale = _player.gravityScale;
         _player.gravityScale = lowGravityScale;
     }

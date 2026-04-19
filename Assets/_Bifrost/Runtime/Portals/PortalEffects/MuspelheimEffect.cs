@@ -7,11 +7,11 @@ public class MuspelheimEffect : MonoBehaviour, IWorldEffect
     [SerializeField] private Transform spawnRoot;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject orbPrefab;
-    [SerializeField] private PlayerController player;
     [SerializeField] private float proximityDistance = 2f;
     [SerializeField] private float explosionForce = 12f;
     [SerializeField] private float respawnTime = 5f;
 
+    private PlayerController player;
     private bool isActive;
     private readonly List<Orb> orbs = new List<Orb>();
 
@@ -19,10 +19,7 @@ public class MuspelheimEffect : MonoBehaviour, IWorldEffect
     {
         if (isActive) return;
 
-        if (player == null)
-        {
-            player = Object.FindFirstObjectByType<PlayerController>();
-        }
+        player = GameManager.Instance.Player;
 
         if ((spawnPoints == null || spawnPoints.Length == 0) && spawnRoot != null)
         {
