@@ -30,7 +30,7 @@
 
                     line-height: 32px;
                 "
-                text="TEAM 'USTAVSHIY GAMEDEV'&#10;&#10;ART DIRECTOR  3D ARTIST  2D ARTIST  MANAGER&#10;Olga Bugaenko&#10;&#10;PROGRAMMIST  VFX SPECIALIST  UI-DESIGHNER&#10;Artem Zhdanov&#10;&#10;PROGRAMMIST  GAME DESIGNER&#10;Irina Sidorova&#10;&#10;GAME DESIGNER  3D ARTIST&#10;Andrey Valeev&#10;&#10;THANK YOU FOR PLAYING" />
+                text="TEAM 'USTAVSHIY GAMEDEV'&#10;&#10;ART DIRECTOR  3D ARTIST  2D ARTIST  MANAGER&#10;Olga Bugaenko&#10;&#10;PROGRAMMIST  VFX SPECIALIST  UI-DESIGHNER  MUSICIAN&#10;Artem Zhdanov&#10;&#10;PROGRAMMIST  GAME DESIGNER&#10;Irina Sidorova&#10;&#10;GAME DESIGNER  3D ARTIST&#10;Andrey Valeev&#10;&#10;THANK YOU FOR PLAYING" />
 
         </ui:VisualElement>
 

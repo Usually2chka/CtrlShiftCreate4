@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private MainMenuController _mainMenuController;
     [SerializeField] private HUDController _hudController;
     
+    public HUDController HUD => _hudController;
+    
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _mouseSensitivity = 25f;
     [SerializeField] private Transform _playerCamera;
@@ -58,6 +60,20 @@ public class PlayerController : MonoBehaviour
         HideHUD();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    public void DisableInputForUI()
+    {
+        _inputActions.Disable();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void EnableInputForUI()
+    {
+        _inputActions.Enable();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void ShowMainMenu()

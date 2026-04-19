@@ -11,6 +11,7 @@ namespace _Bifrost.Runtime.Portals
 
     private IWorldEffect worldEffect;
     [SerializeField] private int _stabilityLevel = 0; // текущий уровень стабильности
+    [SerializeField] private Renderer portalTextRenderer; // рендерер для изменения материала портала
 
     public int StabilityLevel => _stabilityLevel;
     
@@ -21,9 +22,10 @@ namespace _Bifrost.Runtime.Portals
     {
         worldEffect = GetComponent<IWorldEffect>();
         if (worldEffect == null)
-    {
-        Debug.LogError("IWorldEffect component is missing!", this);
-    }
+        {
+            Debug.LogError("IWorldEffect component is missing!", this);
+        }
+        portalTextRenderer.material.SetFloat("_State", _stabilityLevel);
     }
 
     public void Open()
@@ -48,6 +50,7 @@ namespace _Bifrost.Runtime.Portals
         
         // уведомляем об изменении состояния
         OnStateChanged?.Invoke(state);
+        TextureSwitcher.Instance.HideLayer(config.worldType); // Скрыть слой мира
     }
 
     public void Close()
@@ -64,6 +67,7 @@ namespace _Bifrost.Runtime.Portals
         
         // уведомляем об изменении состояния
         OnStateChanged?.Invoke(state);
+        TextureSwitcher.Instance.HideLayer(config.worldType); // Скрыть слой мира
     }
 
     public void Stabilize()
@@ -73,6 +77,7 @@ namespace _Bifrost.Runtime.Portals
         state = PortalState.Stabilized;
         WorldEffectManager.Instance.RemoveEffect(worldEffect);
         OnStateChanged?.Invoke(state);
+        TextureSwitcher.Instance.ShowLayer(config.worldType); // Показать слой мира
     }
 
     public void Destabilize()
@@ -82,6 +87,7 @@ namespace _Bifrost.Runtime.Portals
         state = PortalState.OpenUnstable;
         WorldEffectManager.Instance.RegisterEffect(worldEffect);
         OnStateChanged?.Invoke(state);
+        TextureSwitcher.Instance.HideLayer(config.worldType); // Скрыть слой мира
     }
 
     public void AddCrystal(Crystal crystal)
@@ -159,6 +165,7 @@ namespace _Bifrost.Runtime.Portals
         {
             Destabilize();
         }
+        portalTextRenderer.material.SetFloat("_State", _stabilityLevel);
     }
 
     private void DeactivateCrystals(WorldType type)
