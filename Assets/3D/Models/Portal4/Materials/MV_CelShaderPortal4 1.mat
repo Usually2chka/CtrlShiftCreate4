@@ -40,6 +40,6 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColorOverride: {r: 0.2603773, g: 0.18741184, b: 0.050601613, a: 0}
+    - _BaseColorOverride: {r: 0.118999995, g: 0.040954296, b: 0.013222221, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
