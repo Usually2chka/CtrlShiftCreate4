@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 64b8655591960de41bc15f0cc285205a
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/OpTileAndOffset.cginc
+  uploadId: 881376

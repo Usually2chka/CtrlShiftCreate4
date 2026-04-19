@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 07955cfb76882574b9e805f87754abc4
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/OpOpacity.cginc
+  uploadId: 881376

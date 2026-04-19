@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aa73f702a057cd947b44e7478091de77
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/OpGlow.cginc
+  uploadId: 881376

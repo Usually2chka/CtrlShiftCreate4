@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e46edee3310109d4ea809556bf846e35
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/OpBlur.cginc
+  uploadId: 881376

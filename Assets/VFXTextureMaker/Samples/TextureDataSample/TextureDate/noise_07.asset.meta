@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f002fcb844e11a84b8ed03798a9e1b86
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Samples/TextureDataSample/TextureDate/noise_07.asset
+  uploadId: 881376

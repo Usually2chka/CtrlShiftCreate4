@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c5fd96c21ada49e4080a32a7fe739c1b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Editor/Property/AnimationCurveProperty.cs
+  uploadId: 881376

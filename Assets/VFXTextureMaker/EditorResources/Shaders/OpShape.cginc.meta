@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2cfad57091bde4f4083cdd86ae542c8c
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/OpShape.cginc
+  uploadId: 881376

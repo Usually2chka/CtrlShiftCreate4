@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c357489e33e81bb408e0d3f2b5d39338
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Editor/Property/Vector4AnimProperty.cs
+  uploadId: 881376

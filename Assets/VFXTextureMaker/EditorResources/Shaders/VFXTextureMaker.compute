@@ -1,0 +1,510 @@
+#pragma kernel Clear
+#pragma kernel Draw_Draw
+#pragma kernel Displacement_Displacement
+#pragma kernel Draw_Texture
+#pragma kernel Displacement_Texture
+#pragma kernel Displacement_NormalMap
+#pragma kernel Draw_Noise_ValueNoise
+#pragma kernel Draw_Noise_ValueNoiseGrad
+#pragma kernel Draw_Noise_PerlinNoise
+#pragma kernel Draw_Noise_PerlinNoiseGrad
+#pragma kernel Draw_Noise_DistanceNoise
+#pragma kernel Draw_Noise_Voronoi
+#pragma kernel Draw_Noise_VoronoiEdge
+#pragma kernel Displacement_Noise_ValueNoise
+#pragma kernel Displacement_Noise_ValueNoiseGrad
+#pragma kernel Displacement_Noise_PerlinNoise
+#pragma kernel Displacement_Noise_PerlinNoiseGrad
+#pragma kernel Displacement_Noise_DistanceNoise
+#pragma kernel Displacement_Noise_Voronoi
+#pragma kernel Displacement_Noise_VoronoiEdge
+#pragma kernel Draw_TileAndOffset
+#pragma kernel Draw_Shape_DistancePower
+#pragma kernel Draw_Shape_Polygon
+#pragma kernel Filter_Blur_Gausian
+#pragma kernel Filter_Blur_Direction
+#pragma kernel Filter_Blur_Zoom
+#pragma kernel Filter_Blur_Rotate
+#pragma kernel Filter_GradationSample
+#pragma kernel Filter_Glow
+#pragma kernel Filter_ColorBalance
+#pragma kernel Filter_Posterize
+
+
+RWTexture2D<float4> _Result;
+Texture2D<float4> _Buffer;
+float2 _Resolution;
+Texture2D<float4> _MaskTex;
+bool _Maskable;
+
+float4 _DrawColor;
+
+#include "Math.cginc"
+#include "UVConvert.cginc"
+#include "HashByRandom.cginc"
+#include "OpUvDeform.cginc"
+#include "OpTexture.cginc"
+#include "OpOpacity.cginc"
+#include "OpDisplacement.cginc"
+#include "OpNoise.cginc"
+#include "OpShape.cginc"
+#include "OpBlur.cginc"
+#include "OpGradation.cginc"
+#include "OpGlow.cginc"
+#include "OpColorBalance.cginc"
+#include "OpTileAndOffset.cginc"
+#include "OpPosterize.cginc"
+
+
+[numthreads(1, 1, 1)]
+void Clear(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    _Result[ids] = float4(0, 0, 0, 0);
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Draw(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Displacement(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[UVToID(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))))];
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Texture(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = TextureSampler(UVToID(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))))) * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Texture(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = NormalTextureSampler(UVToID(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))))).xy;
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_NormalMap(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = TextureSampler(UVToID(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))))).xy - float2(0.5, 0.5);
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+
+[numthreads(1, 1, 1)]
+void Draw_Noise_ValueNoise(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = ValueNoise(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    drawCol = saturate(float4(drawCol));
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Noise_ValueNoiseGrad(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = ValueNoiseGrad(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Noise_PerlinNoise(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = PerlinNoise(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Noise_PerlinNoiseGrad(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = PerlinNoiseGrad(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Noise_DistanceNoise(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = DistanceNoise(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Noise_Voronoi(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = Voronoi(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Noise_VoronoiEdge(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = VoronoiEdge(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Noise_ValueNoise(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = ValueNoiseDisplacement(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))));
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Noise_ValueNoiseGrad(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = ValueNoiseGradDistorion(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))));
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Noise_PerlinNoise(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = PerlinNoiseDisplacement(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))));
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Noise_PerlinNoiseGrad(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = PerlinNoiseGradDisplacement(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))));
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Noise_DistanceNoise(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = DistanceNoiseDisplacement(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))));
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Noise_Voronoi(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = VoronoiDisplacement(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xy - float2(0.5, 0.5);
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Displacement_Noise_VoronoiEdge(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float2 displacement = VoronoiEdge(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xx - float2(0.5, 0.5);;
+    float4 col = Displacement(IdToUV(ids), displacement);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_TileAndOffset(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = TileAndOffset(ids);
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Shape_DistancePower(uint2 id : SV_DispatchThreadID)
+{
+
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = ShapeDistancePower(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Draw_Shape_Polygon(uint2 id : SV_DispatchThreadID)
+{
+
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = ShapePolygon(UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids))))))).xxxx * _DrawColor;
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_Blur_Gausian(uint2 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+
+    float4 col = GausianBlur(ids);
+
+    _Result[id] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_Blur_Direction(uint2 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+
+    float4 col = DirectionBlur(ids);
+
+    _Result[id] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_Blur_Zoom(uint2 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+
+    float4 col = ZoomBlur(ids);
+
+    _Result[id] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_Blur_Rotate(uint2 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+
+    float4 col = RotateBlur(ids);
+
+    _Result[id] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_GradationSample(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = sampleGradation(col, UVRepeat(UVBend(UVPolar(UVRotate(UVScale(IdToUV(ids)))))));
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_Glow(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    float4 drawCol = Glow(ids);
+    if (_Maskable)
+    {
+        col = Blend(col, drawCol, _MaskTex[ids]);
+    }
+    else
+    {
+        col = Blend(col, drawCol);
+    }
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_ColorBalance(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    col.xyz = ColorBalance(col.xyz);
+    
+    _Result[ids] = col;
+}
+
+[numthreads(1, 1, 1)]
+void Filter_Posterize(uint3 id : SV_DispatchThreadID)
+{
+    int2 ids = int2(asint(id.x), asint(id.y));
+    if (ids.x >= int(_Resolution.x) || ids.y >= int(_Resolution.y)) return;
+    float4 col = _Buffer[ids];
+    col = Posterize(col);
+    
+    _Result[ids] = col;
+}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 63d21ec4955123f409c447bc997d3b7c
+ComputeShaderImporter:
+  externalObjects: {}
+  currentAPIMask: 4
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/CopyRT.compute
+  uploadId: 881376

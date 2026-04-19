@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b4eb07b269c8f8c4d971dabe072ff938
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Samples/TextureDataSample/TextureDate/flash_04.asset
+  uploadId: 881376

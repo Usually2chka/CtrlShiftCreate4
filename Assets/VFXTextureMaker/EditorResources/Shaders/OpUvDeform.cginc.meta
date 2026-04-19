@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 34988931a3f792047947867fe5dde60c
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/OpUvDeform.cginc
+  uploadId: 881376

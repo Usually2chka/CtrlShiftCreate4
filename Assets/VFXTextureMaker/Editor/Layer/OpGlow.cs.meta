@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 5f3d6ac03b4607d4bbdf8ded1412d2ff
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Editor/Layer/OpGlow.cs
+  uploadId: 881376

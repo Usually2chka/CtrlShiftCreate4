@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e2ab5f83a5c1b044f900d69b1da75ca6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Editor/Property/GradientProperty.cs
+  uploadId: 881376

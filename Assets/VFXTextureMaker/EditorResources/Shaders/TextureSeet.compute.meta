@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 70430aa5c9ff1ea469465a4e87f43bbd
+ComputeShaderImporter:
+  externalObjects: {}
+  currentAPIMask: 4
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/EditorResources/Shaders/TextureSeet.compute
+  uploadId: 881376

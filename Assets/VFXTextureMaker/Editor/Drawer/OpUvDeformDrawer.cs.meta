@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 528d82da849370046ab90d4c2e814b98
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Editor/Drawer/OpUvDeformDrawer.cs
+  uploadId: 881376

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 33839b897bf2b2e4f9143504c05b4b2f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Samples/TextureDataSample/TextureDate/star_00.asset
+  uploadId: 881376

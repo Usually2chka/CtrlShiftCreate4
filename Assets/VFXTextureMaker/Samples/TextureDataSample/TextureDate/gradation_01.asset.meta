@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 27394bdb8d185ce41a9f757e3bf9bd90
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360338
+  packageName: VFXTextureMaker
+  packageVersion: 1.1.0
+  assetPath: Assets/VFXTextureMaker/Samples/TextureDataSample/TextureDate/gradation_01.asset
+  uploadId: 881376
