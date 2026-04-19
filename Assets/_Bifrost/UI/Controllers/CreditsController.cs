@@ -13,7 +13,7 @@ public class CreditsController : MonoBehaviour
     private float speed = 120f;
     private float colorHue = 0f;
 
-    private float minDuration = 12f;
+    private float minDuration = 14f;
     private float timer = 0f;
 
     public bool IsFinished { get; private set; }
