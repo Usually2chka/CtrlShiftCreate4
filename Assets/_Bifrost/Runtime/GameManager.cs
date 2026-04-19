@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using _Bifrost.UI.Controllers;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,8 +31,15 @@ public class GameManager : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            if (_playerController != null && !_playerController.HUD.IsTutorialOpen)
+            if (_playerController != null && !_playerController.HUD.IsTutorialOpen && CurrentState != GameState.PAUSED)
                 SetState(GameState.PAUSED);
+            else
+            {
+                SetState(GameState.RUNNING);
+                _playerController.HUD.Show();
+                SettingsController.Hide();
+            }
+            
         }
         if (Keyboard.current.digit0Key.wasPressedThisFrame)
             EndGame();
@@ -54,9 +62,11 @@ public class GameManager : MonoBehaviour
                 _playerController.DisableInput();
                 _playerController.ShowMainMenu();
                 Time.timeScale = 0;
+                AudioManager.Instance.PlayMainMenuSound();
                 break;
 
             case GameState.RUNNING:
+                AudioManager.Instance.StopMainMenuSound();
                 _playerController.EnableInput();
                 _playerController.HideMainMenu();
                 Time.timeScale = 1;

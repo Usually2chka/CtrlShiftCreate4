@@ -2,8 +2,8 @@
     <ui:VisualElement name="root" style="flex-grow: 1;">
         <ui:VisualElement name="SettingsArea" style="flex-grow: 1;">
             <ui:DropdownField label="Resolution" name="ResolutionField" style="align-self: center; width: 20%;"/>
-            <ui:Slider label="Music" value="42" high-value="100" name="MusicSlider" style="justify-content: center; align-self: center; width: 20%;"/>
-            <ui:Slider label="Sensivity mouse" value="42" high-value="100" name="SensitivityMouse" style="justify-content: center; align-self: center; width: 20%;"/>
+            <ui:Slider label="Music" value="42" high-value="1" name="MusicSlider" fill="true" style="justify-content: center; align-self: center; width: 20%;"/>
+            <ui:Slider label="Sensivity mouse" value="42" high-value="100" name="SensitivitySlider" show-input-field="true" fill="true" low-value="0.1" style="justify-content: center; align-self: center; width: 20%;"/>
         </ui:VisualElement>
         <ui:VisualElement name="Actions" style="flex-direction: row; justify-content: center; align-items: center; border-bottom-width: 13px;">
             <ui:GroupBox name="GroupButtonSettings" style="justify-content: space-around; align-items: stretch; flex-direction: row; width: 303px;">

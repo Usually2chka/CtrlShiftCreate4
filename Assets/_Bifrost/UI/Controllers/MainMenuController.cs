@@ -30,17 +30,20 @@ namespace _Bifrost.UI.Controllers
             {
                 GameManager.Instance.SetState(GameState.RUNNING);
                 _hudController.Show();
+                AudioManager.Instance.PlayUISound();
                 _root.style.display = DisplayStyle.None;
             };
             
             _settingsButton.clicked += () =>
             {
                 _settingsController.Show();
+                AudioManager.Instance.PlayUISound();
                 _root.style.display = DisplayStyle.None;
             };
 
             _exitButton.clicked += () =>
             {
+                AudioManager.Instance.PlayUISound();
                 Application.Quit();
             };
         }

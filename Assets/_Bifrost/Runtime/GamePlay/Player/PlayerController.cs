@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     
     public HUDController HUD => _hudController;
     
-    [SerializeField] private float _speed = 5f;
     [SerializeField] private float _mouseSensitivity = 25f;
+    [SerializeField] private float _speed = 5f;
     [SerializeField] private Transform _playerCamera;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _jumpForce = 1.5f;
     [SerializeField] private float _gravity = -9.81f;
+    public static float _mouseSensitivityModifier = 1f;
+    
     public float gravityScale = 1f;
 
     [Header("Ice Effects")]
@@ -174,8 +176,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleLook()
     {
-        float mouseX = _lookInput.x * _mouseSensitivity * Time.deltaTime;
-        float mouseY = _lookInput.y * _mouseSensitivity * Time.deltaTime;
+        float mouseX = _lookInput.x * (_mouseSensitivity * _mouseSensitivityModifier) * Time.deltaTime;
+        float mouseY = _lookInput.y * (_mouseSensitivity * _mouseSensitivityModifier) * Time.deltaTime;
 
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);
