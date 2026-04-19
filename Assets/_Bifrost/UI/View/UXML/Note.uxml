@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    
+    <!-- Контейнер записки -->
+    <ui:VisualElement name="noteContainer"
+        style="
+            position: absolute;
+            left: 25%;
+            top: 25%;
+            width: 50%;
+            height: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        ">
+
+        <!-- Картинка записки -->
+        <ui:Image name="NoteImage"
+            style="
+                width: 50%;
+                height: 90%;
+                unity-background-scale-mode: scale-to-fit;
+            " />
+            <ui:Button name="CloseNoteButton" text="X" 
+                style="
+                    position: absolute; 
+                        top: 20px; right: 20px; 
+                        width: 50px; height: 50px; 
+                    background-color: rgba(255, 255, 255, 0.8); 
+                    font-size: 30px;"/>
+
+    </ui:VisualElement>
+
+</ui:UXML>

@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class AlfheimEffect : MonoBehaviour, IWorldEffect
 {
     [SerializeField] private GameObject globalVolume;
+    [SerializeField] private GameObject rootWorldObjectsToDisable;
     public void Apply()
     {
         if (globalVolume == null)
@@ -13,6 +14,17 @@ public class AlfheimEffect : MonoBehaviour, IWorldEffect
             return;
         }
         globalVolume.SetActive(true);
+        if (rootWorldObjectsToDisable != null)
+        {
+            foreach (Transform child in rootWorldObjectsToDisable.transform)
+            {
+                foreach (Transform ch in child)
+                {
+                    Renderer renderer = ch.GetComponent<Renderer>();
+                    renderer.material.SetFloat("_Flex", 2f);
+                }
+            }
+        }
     }
 
     public void Remove()
@@ -23,5 +35,16 @@ public class AlfheimEffect : MonoBehaviour, IWorldEffect
             return;
         }
         globalVolume.SetActive(false);
+        if (rootWorldObjectsToDisable != null)
+        {
+            foreach (Transform child in rootWorldObjectsToDisable.transform)
+            {
+                foreach (Transform ch in child)
+                {
+                    Renderer renderer = ch.GetComponent<Renderer>();
+                    renderer.material.SetFloat("_Flex", 2f);
+                }
+            }
+        }
     }
 }

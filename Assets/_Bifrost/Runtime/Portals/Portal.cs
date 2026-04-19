@@ -25,7 +25,14 @@ namespace _Bifrost.Runtime.Portals
         {
             Debug.LogError("IWorldEffect component is missing!", this);
         }
-        portalTextRenderer.material.SetFloat("_State", _stabilityLevel);
+        if (portalTextRenderer == null)
+        {
+            Debug.LogWarning("Portal text renderer is not assigned!", this);
+        } else
+        {
+            // Инициализируем материал портала на основе начального состояния
+            portalTextRenderer.material.SetFloat("_State", _stabilityLevel);
+        }
     }
 
     public void Open()
@@ -165,7 +172,8 @@ namespace _Bifrost.Runtime.Portals
         {
             Destabilize();
         }
-        portalTextRenderer.material.SetFloat("_State", _stabilityLevel);
+        if (portalTextRenderer != null)
+            portalTextRenderer?.material.SetFloat("_State", _stabilityLevel);
     }
 
     private void DeactivateCrystals(WorldType type)
