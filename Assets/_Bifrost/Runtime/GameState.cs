@@ -4,6 +4,7 @@ namespace _Bifrost.Runtime.Managers
     {
         RUNNING,
         PAUSED,
-        
+        CREDITS,
+        NONE
     }
 }

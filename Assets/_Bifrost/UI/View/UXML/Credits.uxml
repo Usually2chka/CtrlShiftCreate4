@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+
+    <ui:VisualElement name="root"
+        style="
+            flex-grow: 1;
+            background-color: black;
+            justify-content: center;
+            align-items: center;
+        ">
+
+        <ui:VisualElement name="textContainer"
+            style="
+                width: 80%;
+                max-width: 900px;
+                align-items: center;
+            ">
+
+            <ui:Label name="creditsText"
+                style="
+                    width: auto;
+                    unity-text-align: middle-center;
+                    -unity-text-align: middle-center;
+
+                    align-self: center;
+
+                    font-size: 24px;
+                    color: white;
+
+                    white-space: normal;
+
+                    line-height: 32px;
+                "
+                text="TEAM 'USTAVSHIY GAMEDEV'&#10;&#10;ART DIRECTOR  3D ARTIST  2D ARTIST  MANAGER&#10;Olga Bugaenko&#10;&#10;PROGRAMMIST  VFX SPECIALIST  UI-DESIGHNER&#10;Artem Zhdanov&#10;&#10;PROGRAMMIST  GAME DESIGNER&#10;Irina Sidorova&#10;&#10;GAME DESIGNER  3D ARTIST&#10;Andrey Valeev&#10;&#10;THANK YOU FOR PLAYING" />
+
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+
+</ui:UXML>

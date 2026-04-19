@@ -45,7 +45,7 @@ MonoBehaviour:
     m_Value: 1
   anisotropy:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.87
   scattering:
     m_OverrideState: 1
     m_Value: 0.15
