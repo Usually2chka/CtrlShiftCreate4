@@ -47,8 +47,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (CurrentState == GameState.NONE)
+        isNoteOnceOpen = false;
+        if (CurrentState == GameState.NONE) {
             SetState(GameState.PAUSED);
+        }
     }
 
     public void SetState(GameState newState)
@@ -70,6 +72,11 @@ public class GameManager : MonoBehaviour
                 _playerController.EnableInput();
                 _playerController.HideMainMenu();
                 Time.timeScale = 1;
+                if (!isNoteOnceOpen)
+                    {
+                        isNoteOnceOpen = true;
+                        ShowNote();
+                    }
                 break;
 
             case GameState.CREDITS:
@@ -81,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        isNoteOnceOpen = false;
         StartCoroutine(EndGameRoutine());
     }
 
@@ -105,5 +113,23 @@ public class GameManager : MonoBehaviour
     public void RegisterPlayer(PlayerController player)
     {
         _playerController = player;
+    }
+
+    [SerializeField] private NoteController notePrefab;
+    private bool isNoteOnceOpen = false;
+    public void ShowNote()
+    {
+        var note = Instantiate(notePrefab);
+        
+        _playerController.DisableInputForUI();
+
+        note.ShowNote();
+
+
+        note.OnClosed += HandleNoteClosed;
+    }
+    private void HandleNoteClosed()
+    {
+        _playerController.EnableInputForUI();
     }
 }
