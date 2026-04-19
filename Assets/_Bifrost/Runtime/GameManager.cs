@@ -29,7 +29,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            SetState(GameState.PAUSED);
+        {
+            if (_playerController != null && !_playerController.HUD.IsTutorialOpen)
+                SetState(GameState.PAUSED);
+        }
         if (Keyboard.current.digit0Key.wasPressedThisFrame)
             EndGame();
     }
