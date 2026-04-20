@@ -83,6 +83,11 @@ namespace _Bifrost.UI.Controllers
             if (Keyboard.current[Key.Digit3].wasPressedThisFrame) Select(2);
             
             if (Keyboard.current[Key.H].wasPressedThisFrame) ToggleTutorial();
+            if (Keyboard.current[Key.Escape].wasPressedThisFrame)
+            {
+                if (IsTutorialOpen)
+                    HideTutorial();
+            }
         }
         
         private void Select(int index)

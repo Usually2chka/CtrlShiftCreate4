@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState = GameState.NONE;
     
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] public CrystalDatabase _crystalDatabase;
+
     public PlayerController Player => _playerController;
     public string gameplaySceneName = "MyScene";
     

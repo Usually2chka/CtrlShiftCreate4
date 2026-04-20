@@ -13,12 +13,12 @@ namespace _Bifrost.Runtime.Managers.GamePlay
 
     public class SocketPortal : InteractiveObject
     {
-        [SerializeField] private Transform _playerTransform;
-        [SerializeField] private Transform _placePoint; // куда вставляется предмет
+        private Transform _playerTransform;
+        private Transform _placePoint; // куда вставляется предмет
         [SerializeField] private Crystal _current;
-        [SerializeField] private WorldType[] _acceptedTypes = new WorldType[0]; // разрешенные типы кристаллов
+        private WorldType[] _acceptedTypes = new WorldType[0]; // разрешенные типы кристаллов
         [SerializeField] private SocketType _socketType = SocketType.Giving; // тип сокета
-        [SerializeField] private Portal _linkedPortal; // связанный портал
+        private Portal _linkedPortal; // связанный портал
 
         public WorldType[] AcceptedTypes => _acceptedTypes;
         public SocketType SocketType => _socketType;
@@ -26,6 +26,14 @@ namespace _Bifrost.Runtime.Managers.GamePlay
 
         private void Start()
         {
+            if (_playerTransform == null)
+            {
+                GameObject player = GameObject.FindWithTag("Player");
+                if (player != null)
+                {
+                    _playerTransform = player.transform;
+                }
+            }
             // Автоматически находим связанный портал (среди детей родительского объекта)
             if (_linkedPortal == null)
             {
@@ -44,6 +52,16 @@ namespace _Bifrost.Runtime.Managers.GamePlay
                     _acceptedTypes = _linkedPortal.config.stabilizationCost.Select(cr => cr.type).ToArray();
                 }
             }
+            if (_placePoint == null)
+            {
+                _placePoint = transform.GetChild(0).transform; // если точка не указана, используем позицию сокета
+            }
+            if (_placePoint != null && _current == null)
+            {
+                _current = _placePoint.GetComponentInChildren<Crystal>();
+            }
+
+            TrySpawnInitialCrystal();
         }
 
         public bool CanInsert(Crystal crystal)
@@ -147,5 +165,38 @@ namespace _Bifrost.Runtime.Managers.GamePlay
                 yield return null;
             }
         }
+        private void TrySpawnInitialCrystal()
+        {
+            CrystalDatabase crystalDatabase = GameManager.Instance._crystalDatabase;
+            // Только для дающих сокетов
+            if (_socketType != SocketType.Giving)
+                return;
+
+            // Уже есть кристалл — ничего не делаем
+            if (_current != null)
+                return;
+
+            if (_linkedPortal == null || _linkedPortal.config == null)
+                return;
+ 
+            if (crystalDatabase == null)
+            {
+                Debug.LogWarning("CrystalDatabase не назначен", this);
+                return;
+            }
+
+            var type = _linkedPortal.config.worldType;
+            var prefab = crystalDatabase.GetPrefab(type);
+
+            if (prefab == null)
+                return;
+
+            var rotation = Quaternion.Euler(90f, 0f, 0f);
+            var crystal = Instantiate(prefab, _placePoint.position, rotation, _placePoint);
+            _current = crystal;
+
+            crystal.Show();
+        }
     }
+    
 }
