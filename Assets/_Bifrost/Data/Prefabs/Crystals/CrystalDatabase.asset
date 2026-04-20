@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f1e60ac83887c499d6bb22303345a6, type: 3}
+  m_Name: CrystalDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::CrystalDatabase
+  crystals:
+  - type: 4
+    prefab: {fileID: 1262022411345174945, guid: 14eb381910311e544ab26db04ee41050, type: 3}
+  - type: 0
+    prefab: {fileID: 1262022411345174945, guid: 014e3608d514cec42b68dc8b011380db, type: 3}
+  - type: 1
+    prefab: {fileID: 1262022411345174945, guid: 6134625f0aad9444c9a3965669f5fa14, type: 3}
+  - type: 2
+    prefab: {fileID: 1262022411345174945, guid: 672f28b11ca98d94599efcc02e08e921, type: 3}
+  - type: 3
+    prefab: {fileID: 1262022411345174945, guid: f611acd31a5f9e04da6a93787119ccd1, type: 3}
+  - type: 5
+    prefab: {fileID: 1262022411345174945, guid: 2d2e92b2c968b9640bd8feb9c43611d2, type: 3}
+  - type: 6
+    prefab: {fileID: 1262022411345174945, guid: 431de46b9c906bd4c8b974778c582866, type: 3}
+  - type: 7
+    prefab: {fileID: 1262022411345174945, guid: facd4f4ae5a6d8f428052c4e4c06b289, type: 3}
+  - type: 8
+    prefab: {fileID: 1262022411345174945, guid: 3e460e7082cdfe54fa468a1f38b96005, type: 3}

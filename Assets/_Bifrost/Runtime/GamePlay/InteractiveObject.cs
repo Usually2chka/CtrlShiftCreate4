@@ -5,9 +5,9 @@ namespace _Bifrost.Runtime.Managers.GamePlay
     [RequireComponent(typeof(Outline))]
     public class InteractiveObject : MonoBehaviour, IInventoryItem
     {
-        [SerializeField] private Texture2D _icon;
+        [SerializeField] private Sprite _icon;
         
-        public Texture2D Icon => _icon;
+        public Sprite Icon => _icon;
         
         protected Outline _outline;
 
