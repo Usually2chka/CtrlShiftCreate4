@@ -10,7 +10,7 @@
                             justify-content: center;
                             align-items: center;
                             padding: 20px;
-                            background-color: rgba(0, 0, 0, 0.6);
+                            background-color: rgba(0, 0, 0, 0.5);
                         ">
 
         <!-- Обертка для картинки + кнопки -->

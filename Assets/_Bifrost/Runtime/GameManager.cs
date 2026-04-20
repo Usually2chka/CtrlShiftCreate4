@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public CrystalDatabase _crystalDatabase;
 
     public PlayerController Player => _playerController;
-    public string gameplaySceneName = "MyScene";
+    public string gameplaySceneName = "FinalScene";
     
     private void Awake()
     {
@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
             }
             
         }
-        if (Keyboard.current.digit0Key.wasPressedThisFrame)
-            EndGame();
+        // if (Keyboard.current.digit0Key.wasPressedThisFrame)
+        //     EndGame();
     }
 
     private void Start()

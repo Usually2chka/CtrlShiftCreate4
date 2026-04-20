@@ -60,8 +60,6 @@ public class CreditsController : MonoBehaviour
             bool textFinished = positionY > creditsText.resolvedStyle.height + 100;
             bool timeFinished = timer >= minDuration;
 
-            Debug.Log($"Credits scroll timer: {timer:F2} seconds, positionY: {positionY:F2}, Screen.height: {Screen.height}, textFinished: {textFinished}, timeFinished: {timeFinished}");
-
             if (timeFinished && textFinished)
             {
                 IsFinished = true;

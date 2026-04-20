@@ -35,13 +35,13 @@ public class TextureSwitcher : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.digit6Key.wasPressedThisFrame)
-        {
-            foreach (var wt in worldTextures)
-            {
-                rend.material.SetFloat(wt.nameTexture, lerpStrength);
-            }
-        }
+        // if (Keyboard.current.digit6Key.wasPressedThisFrame)
+        // {
+        //     foreach (var wt in worldTextures)
+        //     {
+        //         rend.material.SetFloat(wt.nameTexture, lerpStrength);
+        //     }
+        // }
         if (emissionStrength != oldEmission)
         {
             rend.material.SetFloat("_EmissionStrength", emissionStrength);
