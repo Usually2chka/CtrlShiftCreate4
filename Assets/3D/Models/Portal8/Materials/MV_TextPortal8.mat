@@ -26,9 +26,16 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _Height: 0
+    - _Rotation: -1.570796
+    - _State: 0
+    - _State2: -0.038
+    - _State3: -0.045
+    - _State4: -0.84
     - _Strength: 50
     m_Colors:
     - _GlowingColor: {r: 0.7569177, g: 0.12641507, b: 1, a: 1}
+    - _RotationAxis: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8813349756480107418
