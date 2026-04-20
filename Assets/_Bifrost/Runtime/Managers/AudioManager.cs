@@ -56,6 +56,26 @@ public class AudioManager : MonoBehaviour
         _uIAudioSource.PlayOneShot(_uIAudioSource.clip);
     }
 
+    public void PlayGameplaySound()
+    {
+        _musicGameplaySource.Play();
+    }
+
+    public void PlayCreditsSound()
+    {
+        _musicCreditSource.Play();
+    }
+
+    public void StopGameplaySound()
+    {
+        _musicGameplaySource.Play();
+    }
+
+    public void StopCreditsSound()
+    {
+        _musicCreditSource.Play();
+    }
+    
     public void PlayMainMenuSound()
     {
         _musicMainMenuSource.Play();
