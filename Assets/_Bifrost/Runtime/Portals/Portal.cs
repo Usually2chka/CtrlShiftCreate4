@@ -58,6 +58,8 @@ namespace _Bifrost.Runtime.Portals
         // уведомляем об изменении состояния
         OnStateChanged?.Invoke(state);
         TextureSwitcher.Instance.HideLayer(config.worldType); // Скрыть слой мира
+        RecalculateStability(); // обновляем материал портала на основе текущей стабильности
+        CheckStability();
     }
 
     public void Close()

@@ -5,8 +5,13 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
 
     [SerializeField] private AudioSource _uIAudioSource;
+    [SerializeField] private AudioSource _musicMainMenuSource;
+    [SerializeField] private AudioSource _musicGameplaySource;
+    [SerializeField] private AudioSource _musicCreditSource;
+    [SerializeField] private AudioSource _openPortalAudioSource;
+    [SerializeField] private AudioSource _closePortalAudioSource;
+    [SerializeField] private AudioSource _putOnCrystalIntoPortalAudioSource;
     
-    [SerializeField] private AudioSource _musicSource;
 
     void Awake()
     {
@@ -23,17 +28,22 @@ public class AudioManager : MonoBehaviour
     // управление музыкой
     public void SetMusicVolume(float value)
     {
-        _musicSource.volume = value;
+        _musicMainMenuSource.volume = value;
+        _musicCreditSource.volume = value;
+        _musicGameplaySource.volume = value;
     }
 
-    public void SetUIVolume(float value)
+    public void SetMusicSFXVolume(float value)
     {
-        
+        _uIAudioSource.volume = value;
+        _openPortalAudioSource.volume = value;
+        _closePortalAudioSource.volume = value;
+        _putOnCrystalIntoPortalAudioSource.volume = value;
     }
     
     public float GetMusicVolume()
     {
-        return _musicSource.volume;
+        return _musicMainMenuSource.volume;
     }
 
     public float GetUIVolume()
@@ -46,13 +56,48 @@ public class AudioManager : MonoBehaviour
         _uIAudioSource.PlayOneShot(_uIAudioSource.clip);
     }
 
+    public void PlayGameplaySound()
+    {
+        _musicGameplaySource.Play();
+    }
+
+    public void PlayCreditsSound()
+    {
+        _musicCreditSource.Play();
+    }
+
+    public void StopGameplaySound()
+    {
+        _musicGameplaySource.Play();
+    }
+
+    public void StopCreditsSound()
+    {
+        _musicCreditSource.Play();
+    }
+    
     public void PlayMainMenuSound()
     {
-        _musicSource.Play();
+        _musicMainMenuSource.Play();
     }
 
     public void StopMainMenuSound()
     {
-        _musicSource.Stop();
+        _musicMainMenuSource.Stop();
+    }
+
+    public void PlayOpenPortalSound()
+    {
+        _openPortalAudioSource.PlayOneShot(_openPortalAudioSource.clip);
+    }
+
+    public void PlayClosePortalSound()
+    {
+        _closePortalAudioSource.PlayOneShot(_closePortalAudioSource.clip);
+    }
+
+    public void PlayPutOnCrystalIntoPortalSound()
+    {
+        _putOnCrystalIntoPortalAudioSource.PlayOneShot(_putOnCrystalIntoPortalAudioSource.clip);
     }
 }

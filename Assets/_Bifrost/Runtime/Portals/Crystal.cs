@@ -6,12 +6,12 @@ using _Bifrost.Runtime.Portals;
 public class Crystal : MonoBehaviour, IInventoryItem
 {
     [SerializeField] private WorldType type;
-    [SerializeField] private Texture2D _icon;
-    [SerializeField] private Texture2D _inactiveIcon; // спрайт в неактивном состоянии
+    [SerializeField] private Sprite _icon;
+    [SerializeField] private Sprite _inactiveIcon; // спрайт в неактивном состоянии
     [SerializeField] private Material _inactiveMaterial; // материал в неактивном состоянии
     [SerializeField] private Material _originalMaterial; // связанный портал (для обновления стабильности при вставке в сокет)
 
-    public Texture2D Icon => IsActive ? _icon : (_inactiveIcon != null ? _inactiveIcon : _icon);
+    public Sprite Icon => IsActive ? _icon : (_inactiveIcon != null ? _inactiveIcon : _icon);
     public WorldType CrystalType => type;
     public bool IsActive { get; private set; } = false;
 
