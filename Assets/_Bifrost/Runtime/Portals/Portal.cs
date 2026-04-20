@@ -12,6 +12,14 @@ namespace _Bifrost.Runtime.Portals
     private IWorldEffect worldEffect;
     [SerializeField] private int _stabilityLevel = 0; // текущий уровень стабильности
     [SerializeField] private Renderer portalTextRenderer; // рендерер для изменения материала портала
+    [SerializeField] private GameObject[] portalVisual; // визуальная часть портала
+    [Serializable] public class InteractDoorMaterials
+    {
+        public Renderer renderer;
+        public Material openMaterial;
+        public Material closedMaterial;
+    }
+    [SerializeField] private InteractDoorMaterials interactDoorMaterials;
 
     public int StabilityLevel => _stabilityLevel;
     
@@ -33,6 +41,12 @@ namespace _Bifrost.Runtime.Portals
             // Инициализируем материал портала на основе начального состояния
             portalTextRenderer.material.SetFloat("_State", _stabilityLevel);
         }
+        portalVisual?.ToList().ForEach(v => v.SetActive(false)); // при старте все порталы неактивны
+        if (interactDoorMaterials.renderer != null)
+        {
+            // Изначально устанавливаем материал в закрытое состояние
+            interactDoorMaterials.renderer.material = interactDoorMaterials.closedMaterial;
+        }
     }
 
     public void Open()
@@ -42,6 +56,14 @@ namespace _Bifrost.Runtime.Portals
         {
             Debug.LogError("WorldEffectManager Instance is NULL!");
             return;
+        }
+
+        AudioManager.Instance.PlayOpenPortalSound(); // воспроизводим звук открытия
+        portalVisual?.ToList().ForEach(v => v.SetActive(true)); // активируем визуальную часть портала
+        if (interactDoorMaterials.renderer != null)
+        {
+            // Устанавливаем материал в открытое состояние
+            interactDoorMaterials.renderer.material = interactDoorMaterials.openMaterial;
         }
 
         // активируем кристаллы этого типа портала
@@ -64,13 +86,21 @@ namespace _Bifrost.Runtime.Portals
 
     public void Close()
     {
+        AudioManager.Instance.PlayClosePortalSound(); // воспроизводим звук закрытия
+        if (interactDoorMaterials.renderer != null)
+        {
+            // Устанавливаем материал в закрытое состояние
+            interactDoorMaterials.renderer.material = interactDoorMaterials.closedMaterial;
+        }
+
         // деактивируем кристаллы этого типа портала
         DeactivateCrystals(config.worldType);
 
         state = PortalState.Closed;
         WorldEffectManager.Instance.RemoveEffect(worldEffect);
         ActivatePortal(false);
-        
+        portalVisual?.ToList().ForEach(v => v.SetActive(false)); // деактивируем визуальную часть портала
+
         // пересчитываем стабильность всех порталов
         RecalculateAllPortalsStability();
         
