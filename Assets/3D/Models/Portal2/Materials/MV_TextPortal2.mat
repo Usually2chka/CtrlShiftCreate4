@@ -27,15 +27,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _Height: 0
-    - _Rotation: -0.63
+    - _Rotation: 0.6
     - _State: 0
     - _State1: 0
-    - _State2: -0.057
-    - _State3: -0.077
+    - _State2: -0.0106
+    - _State3: -0.02
     - _State4: -0.33
     - _Strength: 50
     m_Colors:
-    - _RotationAxis: {r: 0, g: 0, b: 1, a: 0}
+    - _RotationAxis: {r: -0.25, g: 0.18, b: 0.33, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &8638194190204699590

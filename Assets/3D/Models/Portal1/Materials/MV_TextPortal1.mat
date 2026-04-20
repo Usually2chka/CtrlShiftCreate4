@@ -37,7 +37,7 @@ Material:
     - _State4: 0.13
     - _Strength: 50
     m_Colors:
-    - _GlowingColor: {r: 0.06666666, g: 0.71257305, b: 0.77254903, a: 1}
+    - _GlowingColor: {r: 1, g: 0.83815026, b: 0, a: 1}
     - _RotationAxis: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
