@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.CREDITS:
+                AudioManager.Instance.PlayCreditsSound();
                 _playerController.DisableInput();
                 _playerController.HideMainMenu();
                 break;

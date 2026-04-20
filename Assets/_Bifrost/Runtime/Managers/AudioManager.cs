@@ -68,12 +68,12 @@ public class AudioManager : MonoBehaviour
 
     public void StopGameplaySound()
     {
-        _musicGameplaySource.Play();
+        _musicGameplaySource.Stop();
     }
 
     public void StopCreditsSound()
     {
-        _musicCreditSource.Play();
+        _musicCreditSource.Stop();
     }
     
     public void PlayMainMenuSound()
