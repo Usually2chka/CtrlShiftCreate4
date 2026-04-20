@@ -17,6 +17,8 @@ public class ViewPortal : MonoBehaviour
     void UpdatePortalCamera()
     {
         Vector3 relativePos = portalA.InverseTransformPoint(playerCam.transform.position);
+
+        relativePos.x = 0f;
         
         portalCam.transform.position = portalB.TransformPoint(relativePos);
         portalCam.fieldOfView = playerCam.fieldOfView;
