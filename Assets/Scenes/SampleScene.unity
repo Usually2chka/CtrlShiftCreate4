@@ -1187,6 +1187,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c753d0b28befcac4a865118af9ce3caa, type: 3}
   m_PrefabInstance: {fileID: 207251844}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &382517803
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 382517805}
+  - component: {fileID: 382517804}
+  m_Layer: 0
+  m_Name: VFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &382517804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382517803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94677b017cab4ecda3e520c169adc322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Bifrost.Runtime.Managers.VFXManager
+  _vfxFog: {fileID: 1092799068}
+  _vfxFire: {fileID: 859943194}
+  _vfxSnow: {fileID: 620673752}
+  _vfxLeaves: {fileID: 4651524863255762921}
+  _vfxSparks: {fileID: 8290722828781547246}
+--- !u!4 &382517805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382517803}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -27.9346, y: 0, z: -50.77301}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,6 +1825,11 @@ MonoBehaviour:
   m_PivotReferenceSize: 0
   m_Pivot: 0
   m_WorldSpaceCollider: {fileID: 0}
+--- !u!2083052967 &620673752 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 3368905753287317518, guid: 1195c5fc61a858a4385493d0c5a846c4, type: 3}
+  m_PrefabInstance: {fileID: 1736452584759402228}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &698064471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2076,6 +2130,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c753d0b28befcac4a865118af9ce3caa, type: 3}
+--- !u!2083052967 &859943194 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 5482451987739023211, guid: 8396cdd1ef4dff3408ac44331a634269, type: 3}
+  m_PrefabInstance: {fileID: 160651076833061729}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &909814302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,6 +2752,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086729656}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!2083052967 &1092799068 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 531726962287416676, guid: 798653834cd8c61419fee9bd2e74b095, type: 3}
+  m_PrefabInstance: {fileID: 1124704699774959785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1135436709
 GameObject:
   m_ObjectHideFlags: 0
@@ -8775,9 +8839,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bomb
   spawnVFX: {fileID: 960077508}
-  triggerVFX: {fileID: 806187870}
-  activationDelay: 0
-  triggered: 0
+  explosionVFX: {fileID: 0}
+  explosionDuration: 1.5
 --- !u!4 &1594771539
 Transform:
   m_ObjectHideFlags: 0
@@ -10034,6 +10097,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1195c5fc61a858a4385493d0c5a846c4, type: 3}
+--- !u!198 &4651524863255762921 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6429053788352635791, guid: c136f4fe1c5a61c4585db28592855008, type: 3}
+  m_PrefabInstance: {fileID: 492212885570710054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8290722828781547246 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5909619941179750011, guid: 8396cdd1ef4dff3408ac44331a634269, type: 3}
+  m_PrefabInstance: {fileID: 160651076833061729}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -10061,3 +10134,4 @@ SceneRoots:
   - {fileID: 140424687}
   - {fileID: 492212885570710054}
   - {fileID: 1389696062}
+  - {fileID: 382517805}

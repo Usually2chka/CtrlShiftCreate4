@@ -1,4 +1,5 @@
 using System;
+using _Bifrost.Runtime.Managers;
 using _Bifrost.UI.Controllers;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,6 +13,7 @@ public class SettingsController : MonoBehaviour
     private Slider _musicSFXSlider;
     private Slider _sensitivitySlider;
     private Button _okayButton;
+    private Toggle _vfxToggle;
     
     public void Show()
     {
@@ -30,6 +32,7 @@ public class SettingsController : MonoBehaviour
         _musicSFXSlider = s_root.Q<Slider>("MusicSFXSlider");
         _sensitivitySlider = s_root.Q<Slider>("SensitivitySlider");
         _okayButton = s_root.Q<Button>("OkayButton");
+        _vfxToggle = s_root.Q<Toggle>("VFXToggle");
         
         s_root.style.display = DisplayStyle.None;
     }
@@ -51,6 +54,11 @@ public class SettingsController : MonoBehaviour
         _sensitivitySlider.RegisterValueChangedCallback(evt =>
         {
             PlayerController._mouseSensitivityModifier = evt.newValue;
+        });
+
+        _vfxToggle.RegisterValueChangedCallback(evt =>
+        {
+            VFXManager.s_instance.VFXEnabled(evt.newValue);
         });
         
         _okayButton.clicked += () =>
