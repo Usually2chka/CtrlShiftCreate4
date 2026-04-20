@@ -1,9 +1,11 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" style="flex-grow: 1; justify-content: space-around; align-items: stretch; align-self: stretch;">
-        <ui:GroupBox name="ButtonGroup" style="align-self: center;">
-            <ui:Button text="PLAY" name="StartGameButton" style="width: 150px;"/>
-            <ui:Button text="SETTINGS" name="SettingsButton"/>
-            <ui:Button text="EXIT" name="ExitButton" style="width: auto;"/>
+    <Style src="project://database/Assets/_Bifrost/UI/View/USS/VikingButtonStyle.uss?fileID=7433441132597879392&amp;guid=9b8e39b6f5c88ce44bd1625f33ef490e&amp;type=3#VikingButtonStyle"/>
+    <ui:VisualElement name="root" style="flex-grow: 1; justify-content: space-around; align-items: stretch; align-self: stretch; background-image: url(&quot;project://database/Assets/_Bifrost/Materials/Texture/backgroundTree.png?fileID=2800000&amp;guid=d870b323cb956ba419ad8c1fbbf485ab&amp;type=3#backgroundTree&quot;); flex-direction: row-reverse;">
+        <ui:VisualElement style="flex-grow: 1; background-size: 50% 50%;"/>
+        <ui:GroupBox name="ButtonGroup" style="align-self: center; border-left-width: 360px;">
+            <ui:Button text="ИГРАТЬ" name="StartGameButton" class="vik-button" style="width: 200px; color: rgb(212, 175, 55); border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; -unity-text-outline-width: 0; background-color: rgba(0, 0, 0, 0.65); border-left-width: 15px; border-right-width: 15px;"/>
+            <ui:Button text="НАСТРОЙКИ" name="SettingsButton" class="vik-button" style="width: 200px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.65); color: rgb(212, 175, 55); border-left-width: 15px; border-right-width: 15px;"/>
+            <ui:Button text="ВЫХОД" name="ExitButton" class="vik-button" style="width: 200px; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.65); color: rgb(212, 175, 55); border-left-width: 15px; border-right-width: 15px;"/>
         </ui:GroupBox>
     </ui:VisualElement>
 </ui:UXML>

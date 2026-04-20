@@ -1,13 +1,14 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="root" style="flex-grow: 1;">
+    <Style src="project://database/Assets/_Bifrost/UI/View/USS/VikingButtonStyle.uss?fileID=7433441132597879392&amp;guid=9b8e39b6f5c88ce44bd1625f33ef490e&amp;type=3#VikingButtonStyle"/>
+    <ui:VisualElement name="root" style="flex-grow: 1; background-image: none; background-color: rgba(5, 5, 5, 0.66);">
         <ui:VisualElement name="SettingsArea" style="flex-grow: 1; justify-content: center; align-items: center; align-self: stretch;">
-            <ui:Slider label="Music" value="42" high-value="1" name="MusicSlider" fill="true" style="justify-content: center; align-self: center; width: 20%; -unity-font-style: bold;"/>
-            <ui:Slider label="Effects Music" value="42" high-value="1" name="MusicSFXSlider" fill="true" style="justify-content: center; align-self: center; width: 20%; -unity-font-style: bold;"/>
-            <ui:Slider label="Sensivity mouse" value="42" high-value="100" name="SensitivitySlider" show-input-field="true" fill="true" low-value="0.1" style="justify-content: center; align-self: center; width: 20%; -unity-font-style: bold;"/>
+            <ui:Slider label="Music" value="42" high-value="1" name="MusicSlider" fill="true" class="vik-button" style="justify-content: space-evenly; align-self: auto; width: 20%; -unity-font-style: bold; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.65); color: rgb(212, 175, 55); align-items: center; flex-direction: row; border-left-width: 15px; border-right-width: 15px;"/>
+            <ui:Slider label="Effects Music" value="42" high-value="1" name="MusicSFXSlider" fill="true" class="vik-button" style="justify-content: center; align-self: center; width: 20%; -unity-font-style: bold; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.65); color: rgb(212, 175, 55); border-left-width: 15px; border-right-width: 15px;"/>
+            <ui:Slider label="Sensivity mouse" value="42" high-value="100" name="SensitivitySlider" show-input-field="true" fill="true" low-value="0.1" class="vik-button" style="justify-content: center; align-self: center; width: 20%; -unity-font-style: bold; border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.65); -unity-background-image-tint-color: rgb(0, 0, 0); border-left-width: 15px; border-right-width: 15px; color: rgb(212, 175, 55);"/>
         </ui:VisualElement>
         <ui:VisualElement name="Actions" style="flex-direction: row; justify-content: center; align-items: center; border-bottom-width: 13px;">
             <ui:GroupBox name="GroupButtonSettings" style="justify-content: space-around; align-items: stretch; flex-direction: row; width: 303px;">
-                <ui:Button text="OKAY" name="OkayButton"/>
+                <ui:Button text="OKAY" name="OkayButton" class="vik-button" style="border-top-left-radius: 8px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; background-color: rgba(0, 0, 0, 0.65); color: rgb(212, 175, 55); border-left-width: 15px; border-right-width: 15px;"/>
             </ui:GroupBox>
         </ui:VisualElement>
     </ui:VisualElement>
