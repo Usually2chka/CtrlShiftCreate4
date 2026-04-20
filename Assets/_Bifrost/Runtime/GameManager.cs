@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.PAUSED:
+                AudioManager.Instance.StopCreditsSound();
+                AudioManager.Instance.StopGameplaySound();
                 _playerController.DisableInput();
                 _playerController.ShowMainMenu();
                 Time.timeScale = 0;
@@ -71,20 +73,24 @@ public class GameManager : MonoBehaviour
 
             case GameState.RUNNING:
                 AudioManager.Instance.StopMainMenuSound();
+                AudioManager.Instance.StopCreditsSound();
                 _playerController.EnableInput();
                 _playerController.HideMainMenu();
                 Time.timeScale = 1;
                 if (!isNoteOnceOpen)
-                    {
-                        isNoteOnceOpen = true;
-                        ShowNote();
-                    }
+                {
+                    isNoteOnceOpen = true;
+                    ShowNote();
+                }
+                AudioManager.Instance.PlayGameplaySound();
                 break;
 
             case GameState.CREDITS:
-                AudioManager.Instance.PlayCreditsSound();
+                AudioManager.Instance.StopMainMenuSound();
+                AudioManager.Instance.StopGameplaySound();
                 _playerController.DisableInput();
                 _playerController.HideMainMenu();
+                AudioManager.Instance.PlayCreditsSound();
                 break;
         }
     }

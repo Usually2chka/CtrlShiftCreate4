@@ -1,53 +1,58 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
     [Header("VFX")]
-    public GameObject spawnVFX;
-    public GameObject triggerVFX;
+    [SerializeField] private GameObject spawnVFX;
+    [SerializeField] private GameObject explosionVFX;
 
     [Header("Settings")]
-    public float activationDelay = 0f;
-    public bool triggered = false;
+    [SerializeField] private float explosionDuration = 1.5f;
+    public float ExplosionDuration => explosionDuration;
 
-    void Start()
+    private bool exploded;
+    void Awake()
     {
-        // Сразу включаем эффект появления
-        PlaySpawnEffect();
-    }
-
-    void PlaySpawnEffect()
-    {
+        // гарантируем правильное состояние при спавне
         if (spawnVFX != null)
             spawnVFX.SetActive(true);
 
-        if (triggerVFX != null)
-            triggerVFX.SetActive(false);
+        if (explosionVFX != null)
+            explosionVFX.SetActive(false);
+    }
+    public void PlaySpawn()
+    {
+        exploded = false;
+
+        if (spawnVFX != null)
+            spawnVFX.SetActive(true);
+
+        if (explosionVFX != null)
+            explosionVFX.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider other)
+    public void Explode()
     {
-        if (triggered) return;
+        Debug.Log("Bomb: Explode called");
+        if (exploded) return;
 
-        if (other.CompareTag("Player"))
-        {
-            triggered = true;
-            ActivateBomb();
-        }
-    }
+        exploded = true;
 
-    void ActivateBomb()
-    {
-        // выключаем первый эффект
         if (spawnVFX != null)
             spawnVFX.SetActive(false);
 
-        // включаем второй эффект
-        if (triggerVFX != null)
-            triggerVFX.SetActive(true);
+        if (explosionVFX != null)
+            explosionVFX.SetActive(true);
 
-        // уничтожаем объект после проигрыша эффекта
-        float delay = 1.5f; // под длительность VFX
-        Destroy(gameObject, delay);
+        StartCoroutine(DestroyAfter());
+    }
+
+    private IEnumerator DestroyAfter()
+    {
+        yield return new WaitForSeconds(explosionDuration);
+
+        // просто выключаем, а не уничтожаем
+        gameObject.SetActive(false);
     }
 }

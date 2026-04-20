@@ -86,6 +86,8 @@ namespace _Bifrost.Runtime.Managers.GamePlay
 
         public void Insert(Crystal crystal)
         {
+            AudioManager.Instance.PlayPutOnCrystalIntoPortalSound(); // воспроизводим звук вставки
+
             _current = crystal;
             
             // для берущих сокетов обновляем стабильность портала
@@ -99,6 +101,8 @@ namespace _Bifrost.Runtime.Managers.GamePlay
         
         public Crystal Take()
         {
+            AudioManager.Instance.PlayPutOnCrystalIntoPortalSound(); // воспроизводим звук вставки
+            
             if (_current == null) return null;
 
             // проверяем, что портал открыт

@@ -23,7 +23,7 @@ namespace _Bifrost.Runtime.Managers
         private void RefreshPortals()
         {
             UnsubscribePortalEvents();
-            portals = FindObjectsOfType<Portal>();
+            var portals = FindObjectsByType<Portal>(FindObjectsSortMode.None);
             foreach (var portal in portals)
             {
                 portal.OnStateChanged += OnPortalStateChanged;

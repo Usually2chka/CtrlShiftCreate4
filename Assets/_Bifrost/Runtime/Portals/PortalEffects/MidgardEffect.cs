@@ -5,15 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class MidgardEffect : MonoBehaviour, IWorldEffect
 {
     [SerializeField] private GameObject globalVolume;
-    [SerializeField] private Renderer doorRenderer;
-    private Material _originalDoorMaterial;
-    [SerializeField] private Material _invisibleDoorMaterial;
-    void Start()
-    {
-        if (doorRenderer != null) {
-            _originalDoorMaterial = doorRenderer.material;
-        }
-    }
+    [SerializeField] private GameObject door;
     public void Apply()
     {
         if (globalVolume == null)
@@ -22,10 +14,7 @@ public class MidgardEffect : MonoBehaviour, IWorldEffect
             return;
         }
         globalVolume.SetActive(true);
-        if (doorRenderer != null && _invisibleDoorMaterial != null)
-        {
-            doorRenderer.material = _invisibleDoorMaterial;
-        }
+        door.SetActive(true);
     }
 
     public void Remove()
@@ -36,9 +25,6 @@ public class MidgardEffect : MonoBehaviour, IWorldEffect
             return;
         }
         globalVolume.SetActive(false);
-        if (doorRenderer != null && _originalDoorMaterial != null)
-        {
-            doorRenderer.material = _originalDoorMaterial;
-        }
+        door.SetActive(false);
     }
 }
