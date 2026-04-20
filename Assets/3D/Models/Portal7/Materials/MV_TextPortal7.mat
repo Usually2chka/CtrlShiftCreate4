@@ -25,8 +25,18 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _Height: 0
+    - _Rotation: -1.5707964
+    - _Smooth: 0
+    - _State: 0
+    - _State2: -0.048
+    - _State3: -0.0553
+    - _State4: -0.14
+    - _Strength: 50
+    m_Colors:
+    - _GlowingColor: {r: 0.15411368, g: 0.6603774, b: 0.11836946, a: 1}
+    - _RotationAxis: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7938413351721479586

@@ -2730,7 +2730,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49adae90859959348817b3116a664abc, type: 3}
---- !u!1001 &5205624793733148219
+--- !u!1001 &7809244876651826744
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2738,55 +2738,55 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 367135823518118231, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
-      propertyPath: m_Name
-      value: Portal7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.055374
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalPosition.y
       value: 20.586147
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalPosition.z
       value: -19.659151
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1032314676206005229, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+    - target: {fileID: 3764187974203877720, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4573059798136288226, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
+      propertyPath: m_Name
+      value: Portal7_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f3ca3452aee80ea43bc014ae1af7e1f9, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 415dd71cb30f942469456eb6e34eaa52, type: 3}
 --- !u!1001 &8609413018709951108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2858,4 +2858,4 @@ SceneRoots:
   - {fileID: 1900840494}
   - {fileID: 2037711473}
   - {fileID: 2257314824633719319}
-  - {fileID: 5205624793733148219}
+  - {fileID: 7809244876651826744}

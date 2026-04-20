@@ -41,6 +41,6 @@ Material:
     m_Floats:
     - _HighlightStrength: 3
     m_Colors:
-    - _BaseColorOverride: {r: 0.26334602, g: 0.73800004, b: 0.24723, a: 0}
+    - _BaseColorOverride: {r: 0.4943396, g: 0.4943396, b: 0.4943396, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
