@@ -9,9 +9,9 @@ public class SettingsController : MonoBehaviour
     
     private static VisualElement s_root;
     private Slider _musicSlider;
+    private Slider _musicSFXSlider;
     private Slider _sensitivitySlider;
-    private Button _cancelButton;
-    private Button _applyButton;
+    private Button _okayButton;
     
     public void Show()
     {
@@ -27,9 +27,9 @@ public class SettingsController : MonoBehaviour
     {
         s_root = GetComponent<UIDocument>().rootVisualElement;
         _musicSlider = s_root.Q<Slider>("MusicSlider");
+        _musicSFXSlider = s_root.Q<Slider>("MusicSFXSlider");
         _sensitivitySlider = s_root.Q<Slider>("SensitivitySlider");
-        _cancelButton = s_root.Q<Button>("CancelButton");
-        _applyButton = s_root.Q<Button>("ApplyButton");
+        _okayButton = s_root.Q<Button>("OkayButton");
         
         s_root.style.display = DisplayStyle.None;
     }
@@ -42,28 +42,22 @@ public class SettingsController : MonoBehaviour
         {
             AudioManager.Instance.SetMusicVolume(evt.newValue);
         });
+
+        _musicSFXSlider.RegisterValueChangedCallback(evt =>
+        {
+            AudioManager.Instance.SetMusicSFXVolume(evt.newValue);
+        });
         
         _sensitivitySlider.RegisterValueChangedCallback(evt =>
         {
             PlayerController._mouseSensitivityModifier = evt.newValue;
-            Debug.Log($"Sensitivity: {PlayerController._mouseSensitivityModifier}");
         });
         
-        _cancelButton.clicked += () =>
+        _okayButton.clicked += () =>
         {
             AudioManager.Instance.PlayUISound();
             s_root.style.display = DisplayStyle.None;
             _mainMenuUI.ShowSelf();
         };
-
-        _applyButton.clicked += () =>
-        {
-            AudioManager.Instance.PlayUISound();
-        };
-    }
-
-    private void ApplySettings()
-    {
-        
     }
 }
