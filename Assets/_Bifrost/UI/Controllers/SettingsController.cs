@@ -58,7 +58,7 @@ public class SettingsController : MonoBehaviour
 
         _vfxToggle.RegisterValueChangedCallback(evt =>
         {
-            VFXManager.s_instance.VFXEnabled(evt.newValue);
+            VFXManager_1.s_instance.VFXEnabled(evt.newValue);
         });
         
         _okayButton.clicked += () =>

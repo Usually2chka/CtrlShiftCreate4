@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.VFX;
+using _Bifrost.Runtime.Managers;
 
 namespace _Bifrost.Runtime.Portals
 {
@@ -59,7 +61,8 @@ namespace _Bifrost.Runtime.Portals
         }
 
         AudioManager.Instance.PlayOpenPortalSound(); // воспроизводим звук открытия
-        portalVisual?.ToList().ForEach(v => v.SetActive(true)); // активируем визуальную часть портала
+        if(VFXManager_1.s_instance.IsEnabled)
+            portalVisual?.ToList().ForEach(v => v.SetActive(true)); // активируем визуальную часть портала
         if (interactDoorMaterials.renderer != null)
         {
             // Устанавливаем материал в открытое состояние

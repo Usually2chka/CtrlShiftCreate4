@@ -4,15 +4,16 @@ using UnityEngine.VFX;
 
 namespace _Bifrost.Runtime.Managers
 {
-    public class VFXManager : MonoBehaviour
+    public class VFXManager_1 : MonoBehaviour
     {
-        public static VFXManager s_instance { get; private set;}
+        public static VFXManager_1 s_instance { get; private set;}
         
         [SerializeField] private VisualEffect _vfxFog;
         [SerializeField] private VisualEffect _vfxFire;
         [SerializeField] private VisualEffect _vfxSnow;
         [SerializeField] private ParticleSystem _vfxLeaves;
         [SerializeField] private ParticleSystem _vfxSparks;
+        public bool IsEnabled { get; private set; } = true;
 
         private void Awake()
         {
@@ -28,6 +29,7 @@ namespace _Bifrost.Runtime.Managers
 
         public void VFXEnabled(bool value)
         {
+            IsEnabled = value;
             // _vfxFog.enabled = value;
             // _vfxSnow.enabled = value;
             // _vfxFire.enabled = value;

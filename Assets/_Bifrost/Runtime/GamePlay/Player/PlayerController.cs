@@ -121,24 +121,17 @@ public class PlayerController : MonoBehaviour
 
         if (_isOnIce)
         {
-            if (inputDir.sqrMagnitude > 0.01f)
-            {
-                // есть ввод → пытаемся управлять
-                _currentVelocity = Vector3.Lerp(
-                    _currentVelocity,
-                    inputDir * _speed,
-                    Time.deltaTime * iceAcceleration * iceControl
-                );
-            }
-            else
-            {
-                // нет ввода → медленно тормозим (ИНЕРЦИЯ)
-                _currentVelocity = Vector3.Lerp(
-                    _currentVelocity,
-                    Vector3.zero,
-                    Time.deltaTime * 0.1f // ← главный параметр скольжения
-                );
-            }
+            Debug.Log("ICE");
+
+            // ускорение
+            _currentVelocity += inputDir * iceAcceleration * Time.deltaTime;
+
+            // слабое трение
+            _currentVelocity *= 0.995f;
+
+            // ограничение (выше обычной скорости)
+            float maxSpeed = _speed * 2.5f;
+            _currentVelocity = Vector3.ClampMagnitude(_currentVelocity, maxSpeed);
         }
         else
         {

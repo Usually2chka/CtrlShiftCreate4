@@ -5,6 +5,7 @@ public class BreakableTile : MonoBehaviour
 {
     private bool isDisabled = false;
     [SerializeField] private float delay = 0.1f;
+    [SerializeField] private GameObject Lians;
 
     private void Start()
     {
@@ -34,7 +35,7 @@ public class BreakableTile : MonoBehaviour
         Debug.Log($"BreakableTile {gameObject.name} triggered by {other.gameObject.name}. FloorSystem active: {FloorSystem.IsActive}");
         if (!FloorSystem.IsActive) return;
 
-        if (other.CompareTag("Player") && !isDisabled)
+        if (other.CompareTag("Player") && !isDisabled && (Lians == null || !Lians.activeSelf))
         {
             StartCoroutine(DisableAfterDelay());
         }
